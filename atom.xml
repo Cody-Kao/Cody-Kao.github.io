@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Code with Cody</title>
   
-  <subtitle>Learning codes with me</subtitle>
+  <subtitle>A place to share and learn</subtitle>
   <link href="https://cody-kao.github.io/atom.xml" rel="self"/>
   
   <link href="https://cody-kao.github.io/"/>
-  <updated>2026-01-13T09:15:44.334Z</updated>
+  <updated>2026-01-14T16:52:11.967Z</updated>
   <id>https://cody-kao.github.io/</id>
   
   <author>
@@ -18,30 +18,33 @@
   
   <entry>
     <title>first_post</title>
-    <link href="https://cody-kao.github.io/2026/01/13/first-post/"/>
-    <id>https://cody-kao.github.io/2026/01/13/first-post/</id>
+    <link href="https://cody-kao.github.io/golang/web/first-post/"/>
+    <id>https://cody-kao.github.io/golang/web/first-post/</id>
     <published>2026-01-13T09:14:20.000Z</published>
-    <updated>2026-01-13T09:15:44.334Z</updated>
+    <updated>2026-01-14T16:52:11.967Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="My-First-Post"><a href="#My-First-Post" class="headerlink" title="My First Post"></a>My First Post</h1><h3 id="Below-is-an-example-code-block"><a href="#Below-is-an-example-code-block" class="headerlink" title="Below is an example code block"></a>Below is an example code block</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;My-First-Post&quot;&gt;&lt;a href=&quot;#My-First-Post&quot; class=&quot;headerlink&quot; title=&quot;My First Post&quot;&gt;&lt;/a&gt;My First Post&lt;/h1&gt;&lt;h3 id=&quot;Below-is-an-example-c</summary>
-      
+    <content type="html"><![CDATA[<h1 id="My-First-Post"><a href="#My-First-Post" class="headerlink" title="My First Post"></a>My First Post</h1><h2 id="H2"><a href="#H2" class="headerlink" title="H2"></a>H2</h2><h3 id="Below-is-an-example-code-block"><a href="#Below-is-an-example-code-block" class="headerlink" title="Below is an example code block"></a>Below is an example code block</h3><blockquote class="blockquote-center"><p>Something</p></blockquote><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     
+    <summary type="html">這是Golang教學文</summary>
+    
+    
+    
+    <category term="golang" scheme="https://cody-kao.github.io/categories/golang/"/>
+    
+    <category term="web" scheme="https://cody-kao.github.io/categories/golang/web/"/>
     
     
     <category term="code" scheme="https://cody-kao.github.io/tags/code/"/>
+    
+    <category term="web" scheme="https://cody-kao.github.io/tags/web/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="https://cody-kao.github.io/2026/01/13/hello-world/"/>
-    <id>https://cody-kao.github.io/2026/01/13/hello-world/</id>
+    <link href="https://cody-kao.github.io/uncategorized/hello-world/"/>
+    <id>https://cody-kao.github.io/uncategorized/hello-world/</id>
     <published>2026-01-13T09:05:15.510Z</published>
     <updated>2026-01-13T09:05:15.510Z</updated>
     
