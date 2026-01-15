@@ -1588,7 +1588,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #4d556f;
+    background: #c8ff73;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -3331,6 +3331,24 @@ html[data-theme='dark'] {
   --highlight-gutter-foreground: #e8e8e8;
   color-scheme: dark;
 }
+/* 更改側邊欄位字體大小 */
+.menu-item a,
+.sidebar-nav,
+.post-toc {
+  font-size: 1rem !important;
+}
+.site-state-item .site-state-posts a,
+.links-of-author-item a {
+  font-size: 1rem !important;
+}
+.site-author-name {
+  font-size: 1.2rem !important;
+}
+.site-description,
+.site-state-item .site-state-posts span {
+  font-size: 0.9rem !important;
+}
+/* 針對code block去除vertical scroll bar */
 figure.highlight {
   overflow-x: auto;
   overflow-y: hidden;
@@ -3396,4 +3414,26 @@ body.darkmode--activated .reading-progress-bar {
   .live2d-widget-container {
     display: none !important;
   }
+}
+.post-end-notification {
+/* This targets the inner note div created by NexT */
+  background-size: cover;
+  font-size: 14px; /* Font Size */
+}
+.post-body .note {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: none;
+  border-left: 5px solid #428bca;
+  background-image: url("/images/avatar.png"); /* Background Image */
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  background-size: 150px auto;
+  background-position: right bottom;
+}
+body.darkmode--activated .post-body .note {
+  background-color: #444;
+}
+.darkmode-toggle {
+  z-index: 100;
 }
