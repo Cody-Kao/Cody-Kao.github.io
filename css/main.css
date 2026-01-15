@@ -1588,7 +1588,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #c8ff73;
+    background: #4aec99;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -3338,14 +3338,14 @@ html[data-theme='dark'] {
   font-size: 1rem !important;
 }
 .site-state-item .site-state-posts a,
+.site-state-item .site-state-posts span,
 .links-of-author-item a {
   font-size: 1rem !important;
 }
 .site-author-name {
   font-size: 1.2rem !important;
 }
-.site-description,
-.site-state-item .site-state-posts span {
+.site-description {
   font-size: 0.9rem !important;
 }
 /* 針對code block去除vertical scroll bar */
