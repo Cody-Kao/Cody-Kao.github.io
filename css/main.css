@@ -1588,7 +1588,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #fffa3d;
+    background: #ff88e4;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -3355,7 +3355,8 @@ body {
 }
 @media (min-width: 1250px) {
   .main {
-    transform: translateX(-20px); /* move the whole layout left, so it won't be at center */
+    position: relative;
+    left: -20px; /* move the whole layout left, so it won't be at center */
   }
 }
 /* 更改側邊欄位字體大小 */
