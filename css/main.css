@@ -1588,7 +1588,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #62ee87;
+    background: #d22281;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -3353,6 +3353,11 @@ body {
 /* 1. Web Font | 2. System Serif (Fixed Typo) | 3. System Fallback */
   font-family: 'LXGW WenKai TC', 'Comic Sans MS', 'Times New Roman', sans-serif;
 }
+@media (min-width: 1250px) {
+  .main {
+    transform: translateX(-20px); /* move the whole layout left, so it won't be at center */
+  }
+}
 /* 更改側邊欄位字體大小 */
 .menu-item a,
 .sidebar-nav,
@@ -3440,7 +3445,7 @@ body.darkmode--activated .reading-progress-bar {
 .post-end-notification {
 /* This targets the inner note div created by NexT */
   background-size: cover;
-  font-size: 14px; /* Font Size */
+  font-size: 16px; /* Font Size */
 }
 .post-body .note {
   background-color: #f9f9f9;
@@ -3458,4 +3463,40 @@ body.darkmode--activated .post-body .note {
 }
 .darkmode-toggle {
   z-index: 100;
+}
+/* gitalk textarea style */
+.gt-container .gt-header-textarea {
+  border: 2px solid rgba(0,0,0,0.2);
+}
+body.darkmode--activated .gt-container .gt-header-textarea {
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+.gt-container.gt-input-focused:after {
+  display: none;
+}
+body.darkmode--activated .gt-container .gt-header-textarea::placeholder {
+  color: #ccc;
+}
+body.darkmode--activated .gt-container .gt-header-textarea::-webkit-input-placeholder {
+  color: #ccc;
+}
+body.darkmode--activated .gt-container .gt-header-textarea:-ms-input-placeholder {
+  color: #ccc;
+}
+body.darkmode--activated .gt-container .gt-header-textarea::-ms-input-placeholder {
+  color: #ccc;
+}
+.gt-container .gt-comment-text,
+.gt-container .gt-comment-date {
+  margin-left: 0.5em;
+  color: rgba(69,69,69,0.718) !important;
+}
+.gt-container .gt-comment-admin .gt-comment-content {
+  border-radius: 5px;
+  background-color: rgba(246,249,254,0.835) !important;
+}
+.gt-container .gt-comment-content:hover {
+  -webkit-box-shadow: 0 0.625em 1.75em 0 rgba(244,244,244,0.871) !important;
+  box-shadow: 0 0.625em 1.75em 0 rgba(244,244,244,0.871) !important;
 }
