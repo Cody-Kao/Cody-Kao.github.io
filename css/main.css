@@ -1588,7 +1588,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #d22281;
+    background: #fffa3d;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -3494,9 +3494,13 @@ body.darkmode--activated .gt-container .gt-header-textarea::-ms-input-placeholde
 }
 .gt-container .gt-comment-admin .gt-comment-content {
   border-radius: 5px;
+  background-color: rgba(228,228,228,0.835) !important;
+}
+body.darkmode--activated .gt-container .gt-comment-admin .gt-comment-content {
+  border-radius: 5px;
   background-color: rgba(246,249,254,0.835) !important;
 }
 .gt-container .gt-comment-content:hover {
-  -webkit-box-shadow: 0 0.625em 1.75em 0 rgba(244,244,244,0.871) !important;
-  box-shadow: 0 0.625em 1.75em 0 rgba(244,244,244,0.871) !important;
+  -webkit-box-shadow: 0 0 0.625em 0 rgba(244,244,244,0.871) !important;
+  box-shadow: 0 0 0.625em 0 rgba(244,244,244,0.871) !important;
 }
