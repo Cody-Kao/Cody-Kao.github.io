@@ -34,5 +34,8 @@
     "hexo-theme-next": "^8.27.0",
     "hexo-word-counter": "^0.2.2",
     "live2d-widget-model-wanko": "^1.0.5"
+  },
+  "overrides": {
+    "strip-ansi": "6.0.1"
   }
 }

@@ -17,6 +17,11 @@ jobs:
           pwd
           ls -la
 
+      - name: Debug Node version
+        run: |
+          node -v
+          npm -v
+
       - uses: actions/setup-node@v4
         with:
           node-version: 16
