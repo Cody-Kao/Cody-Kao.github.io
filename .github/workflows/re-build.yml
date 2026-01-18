@@ -43,7 +43,7 @@ jobs:
           echo '{
             "schemaVersion": 1,
             "label": "Last Sync",
-            "message": "'"$(date -u +"%Y-%m-%d %H:%M UTC")"'",
+            "message": "'"$(TZ="Asia/Taipei" date +"%Y-%m-%d %H:%M %Z")"'",
             "color": "brightgreen"
           }' > source/_data/sync-status.json
 
