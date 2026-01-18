@@ -32,10 +32,12 @@ jobs:
       - name: Detect data changes
         id: diff
         run: |
-          if [ ! -d source/_data/gitalk_issues ]; then
+          FILE="source/_data/gitalk_issues.json"
+      
+          if [ ! -f "$FILE" ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
-            echo "Data directory missing → treat as changed"
-          elif git diff --quiet -- source/_data/gitalk_issues; then
+            echo "Data file missing → treat as changed"
+          elif git diff --quiet -- "$FILE"; then
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "No data changes"
           else
