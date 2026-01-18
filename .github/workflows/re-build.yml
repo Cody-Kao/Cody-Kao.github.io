@@ -2,7 +2,7 @@ name: Sync Comments & Likes
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "0 * * * *" # every hour (UTC)
   workflow_dispatch:
 
 jobs:
@@ -13,17 +13,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.ACCESS_GITHUB_TOKEN }} # use PAT here
-
-      - name: Debug repo
-        run: |
-          pwd
-          ls -la
-
-      - name: Debug Node version
-        run: |
-          node -v
-          npm -v
+          token: ${{ secrets.ACCESS_GITHUB_TOKEN }}
 
       - uses: actions/setup-node@v4
         with:
@@ -32,11 +22,23 @@ jobs:
       - name: Install deps
         run: npm install
 
+      # 1️⃣ Fetch latest issue / like data
       - name: Fetch issue data
         run: npm run fetch-all
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_GITHUB_TOKEN }}
 
+      # 2️⃣ Check whether issue JSON changed
+      - name: Detect data changes
+        id: diff
+        run: |
+          if git diff --quiet source/_data/issues; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      # 3️⃣ Always update sync badge (heartbeat)
       - name: Update last sync badge
         run: |
           mkdir -p source/_data
@@ -47,20 +49,23 @@ jobs:
             "color": "brightgreen"
           }' > source/_data/sync-status.json
 
-      - name: Commit updated JSON
+      # 4️⃣ Commit JSON updates (badge always, data maybe)
+      - name: Commit JSON updates
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add source/_data/sync-status.json
-          git commit -m "Update last sync time" || echo "No changes to commit"
+          git add source/_data
+          git commit -m "chore: sync issue data & heartbeat" || echo "No changes"
           git push origin HEAD:${{ github.ref }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_GITHUB_TOKEN }}
 
+      # 5️⃣ Build only if issue data changed
       - name: Build
+        if: steps.diff.outputs.changed == 'true'
         run: npx hexo generate
 
+      # 6️⃣ Deploy only if issue data changed
       - name: Deploy
+        if: steps.diff.outputs.changed == 'true'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.ACCESS_GITHUB_TOKEN }}
