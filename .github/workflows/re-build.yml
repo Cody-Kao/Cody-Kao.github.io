@@ -2,7 +2,7 @@ name: Sync Comments & Likes
 
 on:
   schedule:
-    - cron: "*/30 * * * *" # every 30 minutes
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -10,51 +10,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: "npm"
+    - name: Debug repo
+      run: |
+        pwd
+        ls -la
 
-      - name: Install deps
-        run: npm ci
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 18
 
-      - name: Fetch issue data
-        run: npm run fetch-comments
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_GITHUB_TOKEN }}
+    - name: Install deps
+      run: npm install
 
-      - name: Check if data changed
-        id: diff
-        run: |
-          if git diff --quiet source/_data; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
+    - name: Fetch issue data
+      run: npm run fetch-comments
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACCESS_GITHUB_TOKEN }}
 
-      - name: Update last sync time
-        run: |
-          echo "{ \"last_sync\": \"$(date -u +"%Y-%m-%d %H:%M UTC")\" }" > sync-status.json
+    - name: Update last sync time
+      run: |
+        mkdir -p source/_data
+        echo "{ \"last_sync\": \"$(date -u +"%Y-%m-%d %H:%M UTC")\" }" > source/_data/sync-status.json
 
-      - name: Commit updated data
-        if: steps.diff.outputs.changed == 'true'
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add source/_data LAST_SYNC.txt
-          git commit -m "chore: sync comment & like counts"
+    - name: Commit changes
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add source/_data
+        git commit -m "chore: sync comments & likes" || echo "No changes"
 
-      - name: Build site
-        if: steps.diff.outputs.changed == 'true'
-        run: npx hexo generate
+    - name: Build
+      run: npx hexo generate
 
-      - name: Deploy
-        if: steps.diff.outputs.changed == 'true'
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.ACCESS_GITHUB_TOKEN }}
-          publish_dir: ./public
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.ACCESS_GITHUB_TOKEN }}
+        publish_dir: ./public
