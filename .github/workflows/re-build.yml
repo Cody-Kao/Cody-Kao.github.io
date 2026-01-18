@@ -39,12 +39,13 @@ jobs:
           mkdir -p source/_data
           echo "{ \"last_sync\": \"$(date -u +"%Y-%m-%d %H:%M UTC")\" }" > source/_data/sync-status.json
 
-      - name: Commit changes
+      - name: Commit updated JSON
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add source/_data
-          git commit -m "chore: sync comments & likes" || echo "No changes"
+          git add source/_data/sync-status.json
+          git commit -m "Update last sync time" || echo "No changes to commit"
+          git push
 
       - name: Build
         run: npx hexo generate
