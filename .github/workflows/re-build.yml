@@ -1,0 +1,60 @@
+name: Sync Comments & Likes
+
+on:
+  schedule:
+    - cron: "*/30 * * * *" # every 30 minutes
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Fetch issue data
+        run: npm run fetch-comments
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_GITHUB_TOKEN }}
+
+      - name: Check if data changed
+        id: diff
+        run: |
+          if git diff --quiet source/_data; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update last sync time
+        run: |
+          echo "{ \"last_sync\": \"$(date -u +"%Y-%m-%d %H:%M UTC")\" }" > sync-status.json
+
+      - name: Commit updated data
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add source/_data LAST_SYNC.txt
+          git commit -m "chore: sync comment & like counts"
+
+      - name: Build site
+        if: steps.diff.outputs.changed == 'true'
+        run: npx hexo generate
+
+      - name: Deploy
+        if: steps.diff.outputs.changed == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.ACCESS_GITHUB_TOKEN }}
+          publish_dir: ./public
