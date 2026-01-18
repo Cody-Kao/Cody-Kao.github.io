@@ -32,7 +32,7 @@ jobs:
       - name: Detect data changes
         id: diff
         run: |
-          if git diff --quiet source/_data/issues; then
+          if git diff --quiet source/_data/gitalk_issues; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT
