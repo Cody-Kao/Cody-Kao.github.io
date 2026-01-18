@@ -1,0 +1,219 @@
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const b2t = document.querySelector(".back-to-top");
+  if (!b2t) return;
+
+  function toggleB2T() {
+    const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    if (scrollPercent > 10) {
+      b2t.style.bottom = "30px"
+    } else {
+      b2t.style.bottom = "-1000px"
+    }
+  }
+
+  // Initial check
+  toggleB2T();
+
+  window.addEventListener("scroll", toggleB2T);
+});
+</script>
+
+<script>
+/* expand and collapse code block; using event delegation */
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.expand-btn');
+  if (!btn) {
+    return;
+  }
+  const figure = btn.closest('figure.highlight');
+  const cover = btn.previousElementSibling;
+
+  if (!figure || !cover) {
+    console.log('oops');
+    return;
+  }
+
+  const foldHeight = '500px';
+  const expanded = figure.classList.toggle('expanded');
+  btn.style.display = "block";
+  if (expanded) {
+    figure.style.maxHeight = '999999px';
+    cover.style.display = 'none';
+    btn.innerHTML = '<i class="fa fa-chevron-up"></i>';
+  } else {
+    figure.style.maxHeight = foldHeight;
+    cover.style.display = 'block';
+    btn.innerHTML = '<i class="fa fa-chevron-down"></i>';
+  }
+});
+</script>
+
+
+// toggle dark-mode icon 
+<script>
+const icon = document.getElementById('darkmode-icon');
+
+function updateIcon() {
+  if (document.body.classList.contains('darkmode--activated')) {
+    icon.className = 'fa-solid fa-sun'; 
+    icon.style = "color: #FFD43B;"
+  } else {
+    icon.className = 'fa-solid fa-moon';
+    icon.style = "color: #FFD43B;"
+  }
+}
+
+// initial sync (VERY IMPORTANT)
+updateIcon();
+
+// observe body class changes
+const observer = new MutationObserver(updateIcon);
+observer.observe(document.body, {
+  attributes: true,
+  attributeFilter: ['class']
+});
+</script>
+
+{* handling thumbs up *}
+<script>
+  const OWNER = 'Cody-Kao';
+  const REPO = 'Cody-Kao.github.io-comment';
+
+  // Check if this post is already liked
+  function isLiked(issueNumber) {
+    const liked = JSON.parse(localStorage.getItem('gh_liked_posts') || '[]');
+    return liked.includes(issueNumber.toString());
+  }
+
+  // Mark a post as liked
+  function markLiked(issueNumber) {
+    const liked = JSON.parse(localStorage.getItem('gh_liked_posts') || '[]');
+    if (!liked.includes(issueNumber)) {
+      liked.push(issueNumber);
+      localStorage.setItem('gh_liked_posts', JSON.stringify(liked));
+    }
+  }
+
+  // Check if user is logged in (via sessionStorage token)
+  function isLoggedIn() {
+    return !!sessionStorage.getItem('gh_token');
+  }
+
+  // Open GitHub login popup
+  async function login() {
+    const clientId = 'Ov23lixrz47vhBfmnqst';
+    const redirectUri = 'https://github-like-oauth.cody-kao.workers.dev/oauth/github';
+
+    const origin = window.location.origin;
+
+    const url =
+      `https://github.com/login/oauth/authorize` +
+      `?client_id=${clientId}` +
+      `&redirect_uri=${encodeURIComponent(redirectUri + '?origin=' + origin)}` +
+      `&scope=public_repo`;
+
+    const popup = window.open(url, '_blank', 'width=500,height=600');
+
+    window.addEventListener('message', function handler(event) {
+      if (event.origin !== 'https://github-like-oauth.cody-kao.workers.dev') return;
+
+      if (event.data?.token) {
+        sessionStorage.setItem('gh_token', event.data.token);
+        popup?.close();
+        window.removeEventListener('message', handler);
+      }
+    });
+  }
+
+  // Send thumbs-up reaction
+  async function postLike(issueNumber) {
+    const token = sessionStorage.getItem('gh_token');
+    if (!token) {
+      throw new Error('No GitHub token');
+    }
+
+    const res = await fetch(
+      `https://api.github.com/repos/${OWNER}/${REPO}/issues/${issueNumber}/reactions`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+
+          // THIS IS THE KEY FIX 👇
+          Accept: 'application/vnd.github.squirrel-girl-preview+json',
+
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content: '+1' }),
+      }
+    );
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message);
+    }
+
+    markLiked(issueNumber);
+  }
+
+
+  // Initialize button UI on page load
+  function initLikeButtons() {
+    document.querySelectorAll('.gh-like-btn').forEach((btn) => {
+      const issueNumber = btn.dataset.issue;
+
+      if (isLiked(issueNumber)) {
+        btn.innerHTML = '<i class="fa-solid fa-thumbs-up"></i> <span class="btn-text">心意已送達</span>';
+        btn.disabled = true;
+        btn.style.pointerEvents = "none";
+      }
+    });
+  }
+
+  // Event listener for like buttons
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.gh-like-btn');
+    if (!btn) return;
+    console.log('thumb-up button is clicked');
+    const issueNumber = btn.dataset.issue;
+
+    if (isLiked(issueNumber)) {
+      console.log("post is already liked")
+      return; // Already liked
+    } 
+
+    if (!isLoggedIn()) {
+      console.log('user not logged in yet');
+      await login();
+    }
+
+    btn.disabled = true;
+
+    try {
+      await postLike(issueNumber);
+      btn.innerHTML = '<i class="fa-solid fa-thumbs-up"></i> <span class="btn-text">心意已送達</span>';
+      btn.style.pointerEvents = "none";
+    } catch (err) {
+      console.error(err);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  // Run on page load
+  initLikeButtons();
+</script>
+
+<script>
+  function onPageReady() {
+    initLikeButtons();
+  }
+
+  // Normal page load
+  document.addEventListener('DOMContentLoaded', onPageReady);
+
+  // PJAX navigation
+  document.addEventListener('pjax:complete', onPageReady);
+  document.addEventListener('pjax:end', onPageReady);
+</script>

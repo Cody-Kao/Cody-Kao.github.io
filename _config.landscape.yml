@@ -1,0 +1,6 @@
+# Header
+menu:
+  Home: /
+  Archives: /archives
+  About: /about # hexo new page ["page name"] 新增頁面後即可加入到該主題下的menu當中
+rss: /atom.xml

@@ -1,0 +1,28 @@
+{# 1. Retrieve the pre-calculated hash (injected by scripts/inject_hash.js) #}
+{% set gitalk_hash = post.gitalk_md5_hash %}
+
+{# 2. Look up the count in your JSON file #}
+{#    Note: 'site.data.comment_counts' corresponds to source/_data/gitalk_issues.json #}
+{% set issue = site.data.gitalk_issues[gitalk_hash] %}
+{% set comment_count = issue.comments | default(0) %}
+{% set like_count = issue.likes | default(0) %}
+
+<span class="post-meta-break"></span>
+
+<span class="post-meta-item">
+    <span class="post-meta-item-icon">
+        <i class="fa-regular fa-comment-dots"></i>
+    </span>
+    <span class="post-meta-item-text">
+        留言: {{ comment_count }}
+    </span>
+</span>
+
+<span class="post-meta-item">
+    <span class="post-meta-item-icon">
+        <i class="fa-regular fa-thumbs-up"></i>
+    </span>
+    <span class="post-meta-item-text">
+        {{ like_count }}
+    </span>
+</span>

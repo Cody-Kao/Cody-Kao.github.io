@@ -1,0 +1,13 @@
+{% set gitalk_hash = post.gitalk_md5_hash %}
+{% set issue = site.data.gitalk_issues[gitalk_hash] %}
+
+{% if issue %}
+<button
+  class="gh-like-btn"
+  data-issue="{{ issue.issue_number }}"
+>
+  <i class="fa-regular fa-thumbs-up"></i>
+  <span class="btn-text">喜歡</span>
+</button>
+{% endif %}
+

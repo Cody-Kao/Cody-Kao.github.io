@@ -1,0 +1,287 @@
+:root {
+  --body-bg-color: #eee;
+  --content-bg-color: #fff;
+  --card-bg-color: #f5f5f5;
+  --text-color: #555;
+  --selection-bg: #262a30;
+  --selection-color: #eee;
+  --blockquote-color: #666;
+  --link-color: #555;
+  --link-hover-color: #222;
+  --brand-color: #222;
+  --brand-hover-color: #fff;
+  --table-row-odd-bg-color: #f9f9f9;
+  --table-row-hover-bg-color: #f5f5f5;
+  --menu-item-bg-color: #f5f5f5;
+  --theme-color: #fff;
+  --btn-default-bg: #fff;
+  --btn-default-color: #555;
+  --btn-default-border-color: #555;
+  --btn-default-hover-bg: #222;
+  --btn-default-hover-color: #fff;
+  --btn-default-hover-border-color: #222;
+  --highlight-background: #1c1b1b;
+  --highlight-foreground: #fff;
+  --highlight-gutter-background: #323131;
+  --highlight-gutter-foreground: #e8e8e8;
+  color-scheme: light;
+}
+
+/* ---------- Manual DARK override ---------- */
+html[data-theme='dark'] {
+  --body-bg-color: #282828;
+  --content-bg-color: #333;
+  --card-bg-color: #555;
+  --text-color: #ccc;
+  --selection-bg: #bbb;
+  --selection-color: #333;
+  --blockquote-color: #bbb;
+  --link-color: #ccc;
+  --link-hover-color: #eee;
+  --brand-color: #ddd;
+  --brand-hover-color: #ddd;
+  --table-row-odd-bg-color: #282828;
+  --table-row-hover-bg-color: #363636;
+  --menu-item-bg-color: #555;
+  --theme-color: #222;
+  --btn-default-bg: #222;
+  --btn-default-color: #ccc;
+  --btn-default-border-color: #555;
+  --btn-default-hover-bg: #666;
+  --btn-default-hover-color: #ccc;
+  --btn-default-hover-border-color: #666;
+  --highlight-background: #1c1b1b;
+  --highlight-foreground: #fff;
+  --highlight-gutter-background: #323131;
+  --highlight-gutter-foreground: #e8e8e8;
+  color-scheme: dark;
+}
+
+body {
+  /* 1. Web Font | 2. System Serif (Fixed Typo) | 3. System Fallback */
+  font-family: 'LXGW WenKai TC', 'Comic Sans MS', 'Times New Roman', sans-serif;
+}
+
+@media(min-width:1250px) {
+  .main {
+    position: relative;
+    left: -20px; /* move the whole layout left, so it won't be at center */
+  }
+}
+
+/* 更改側邊欄位字體大小 */
+.menu-item a, .sidebar-nav, .post-toc {
+  font-size: 1rem !important;
+}
+
+.site-state-item .site-state-posts a,
+.site-state-item .site-state-posts span,
+.links-of-author-item a {
+  font-size: 1rem !important;
+}
+
+.site-author-name {
+  font-size: 1.2rem !important;
+}
+
+.site-description {
+  font-size: .9rem !important;
+}
+
+/* 針對code block去除vertical scroll bar */
+figure.highlight {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+figure.highlight {
+  transition: max-height 0.2s ease-in-out;
+}
+
+.site-title
+  color: #fff;
+
+.site-brand-container 
+  background: #222;
+
+.header 
+  border-radius: 0 0 12px 12px !important;
+
+.sidebar-inner
+  border-radius: 12px
+  overflow: hidden;
+
+/* the one appears when page width shrinks */
+.sidebar-toggle
+  display: none !important
+
+.site-author-image 
+  border: 1px solid #333;
+  width: clamp(100px, 20vw, 120px);
+  height: clamp(80px, 20vw, 100px);
+  border-radius: 50%;
+  object-fit: cover;
+  padding: 1px;
+
+.archive .collection-title 
+  display: none !important;
+
+.back-to-top
+  left: auto
+  right: 30px
+  bottom: 30px
+  bottom .4s ease-in-out;
+
+body.darkmode--activated .reading-progress-bar {
+  background: #30cbe3;
+}
+
+/*修改h2前面圖標*/
+.posts-expand .post-body h2:before{
+    content: "💡";
+    margin-right: 16px;
+}
+
+/*修改h3前面圖標*/
+.posts-expand .post-body h3:before{
+    content: "🔍";
+    margin-right: 16px;
+}
+
+/*修改h4前面圖標*/
+.posts-expand .post-body h3:before{
+    content: "📌";
+    margin-right: 16px;
+}
+
+/* hide live2d model in small screen */
+@media (max-width: 768px) {
+  #live2d-widget,
+  .live2d-widget-container {
+    display: none !important;
+  }
+}
+
+.post-end-notification {
+  /* This targets the inner note div created by NexT */
+  background-size: cover;
+  font-size: 16px; /* Font Size */
+}
+.post-body .note {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: none;
+    border-left: 5px solid #428bca;
+    background-image: url('/images/avatar.png'); /* Background Image */
+    background-repeat: no-repeat;
+    background-origin: border-box;
+    background-size: 150px auto;
+    background-position: right bottom;
+}
+body.darkmode--activated .post-body .note {
+    background-color: #444;
+}
+
+.darkmode-toggle {
+  z-index: 100;
+}
+
+/* gitalk textarea style */
+.gt-container .gt-header-textarea  {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+body.darkmode--activated .gt-container .gt-header-textarea  {
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+.gt-container.gt-input-focused:after {
+  display: none;
+}
+
+body.darkmode--activated .gt-container .gt-header-textarea::placeholder {
+  color: #ccc;
+}
+
+body.darkmode--activated .gt-container .gt-header-textarea::-webkit-input-placeholder {
+  color: #ccc;
+}
+
+body.darkmode--activated .gt-container .gt-header-textarea:-ms-input-placeholder {
+  color: #ccc;
+}
+
+body.darkmode--activated .gt-container .gt-header-textarea::-ms-input-placeholder {
+  color: #ccc;
+}
+
+.gt-container .gt-comment-text,
+.gt-container .gt-comment-date {
+  margin-left: 0.5em;
+  color: #454545b7 !important;
+}
+
+.gt-container .gt-comment-admin .gt-comment-content {
+  border-radius: 5px;
+  background-color: #e4e4e4d5 !important;
+}
+body.darkmode--activated .gt-container .gt-comment-admin .gt-comment-content {
+  border-radius: 5px;
+  background-color: #f6f9fed5 !important;
+}
+
+.gt-container .gt-comment-content:hover {
+  -webkit-box-shadow: 0 0 0.625em 0 #f4f4f4de !important;
+  box-shadow: 0 0 0.625em 0 #f4f4f4de !important;
+}
+
+/* styles for like button */
+.gh-like-btn {
+  display: inline-flex;
+  width: max-content;
+  align-items: center;
+  gap: 6px; /* space between icon and text */
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f5f5f5;
+  color: #333;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gh-like-btn i {
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+/* Hover effect */
+.gh-like-btn:hover {
+  background-color: #e0e0e0;
+  border-color: #999;
+}
+
+/* Disabled / already liked */
+.gh-like-btn.liked {
+  background-color: #ffd43b;
+  color: #fff;
+  border-color: #f0c000;
+  cursor: not-allowed;
+}
+
+/* Optional darkmode support */
+body.darkmode--activated .gh-like-btn {
+  background-color: #444;
+  color: #eee;
+  border-color: #555;
+}
+
+body.darkmode--activated .gh-like-btn.liked {
+  background-color: #f0c000;
+  color: #222;
+}
+
+body.darkmode--activated .gh-like-btn:hover {
+  background-color: #d0d0d0;
+  border-color: #e0e0e0;
+}
