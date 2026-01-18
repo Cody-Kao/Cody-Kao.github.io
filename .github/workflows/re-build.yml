@@ -10,42 +10,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Debug repo
-      run: |
-        pwd
-        ls -la
+      - name: Debug repo
+        run: |
+          pwd
+          ls -la
 
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 18
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-    - name: Install deps
-      run: npm install
+      - name: Install deps
+        run: npm install
 
-    - name: Fetch issue data
-      run: npm run fetch-comments
-      env:
-        GITHUB_TOKEN: ${{ secrets.ACCESS_GITHUB_TOKEN }}
+      - name: Fetch issue data
+        run: npm run fetch-all
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_GITHUB_TOKEN }}
 
-    - name: Update last sync time
-      run: |
-        mkdir -p source/_data
-        echo "{ \"last_sync\": \"$(date -u +"%Y-%m-%d %H:%M UTC")\" }" > source/_data/sync-status.json
+      - name: Update last sync time
+        run: |
+          mkdir -p source/_data
+          echo "{ \"last_sync\": \"$(date -u +"%Y-%m-%d %H:%M UTC")\" }" > source/_data/sync-status.json
 
-    - name: Commit changes
-      run: |
-        git config user.name "github-actions"
-        git config user.email "github-actions@github.com"
-        git add source/_data
-        git commit -m "chore: sync comments & likes" || echo "No changes"
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add source/_data
+          git commit -m "chore: sync comments & likes" || echo "No changes"
 
-    - name: Build
-      run: npx hexo generate
+      - name: Build
+        run: npx hexo generate
 
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.ACCESS_GITHUB_TOKEN }}
-        publish_dir: ./public
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.ACCESS_GITHUB_TOKEN }}
+          publish_dir: ./public
