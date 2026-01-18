@@ -37,10 +37,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_GITHUB_TOKEN }}
 
-      - name: Update last sync time
+      - name: Update last sync badge
         run: |
           mkdir -p source/_data
-          echo "{ \"last_sync\": \"$(date -u +"%Y-%m-%d %H:%M UTC")\" }" > source/_data/sync-status.json
+          echo '{
+            "schemaVersion": 1,
+            "label": "Last Sync",
+            "message": "'"$(date -u +"%Y-%m-%d %H:%M UTC")"'",
+            "color": "brightgreen"
+          }' > source/_data/sync-status.json
 
       - name: Commit updated JSON
         run: |
