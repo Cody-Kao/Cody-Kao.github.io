@@ -103,7 +103,7 @@ theme: next
 deploy:
   type: "git"
   repo: https://github.com/Cody-Kao/Cody-Kao.github.io # e.g., https://github.com/username/username.github.io
-  branch: master # Optional: defaults to 'gh-pages' for GitHub, 'master' otherwise
+  branch: main # Optional: defaults to 'gh-pages' for GitHub, 'master' otherwise
   message: deploy to GitHubPages successfully # Optional: custom commit message
 
 live2d:
