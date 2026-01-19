@@ -32,10 +32,17 @@ jobs:
       - name: Detect data changes
         id: diff
         run: |
-          if git diff --quiet source/_data/gitalk_issues; then
+          FILE="source/_data/gitalk_issues.json"
+      
+          if [ ! -f "$FILE" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Data file missing → treat as changed"
+          elif git diff --quiet -- "$FILE"; then
             echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No data changes"
           else
             echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Issue data changed"
           fi
 
       # 3️⃣ Always update sync badge (heartbeat)
