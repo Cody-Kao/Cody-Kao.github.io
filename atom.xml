@@ -6,7 +6,7 @@
   <link href="https://cody-kao.github.io/atom.xml" rel="self"/>
   
   <link href="https://cody-kao.github.io/"/>
-  <updated>2026-01-16T12:25:25.741Z</updated>
+  <updated>2026-01-20T05:41:40.342Z</updated>
   <id>https://cody-kao.github.io/</id>
   
   <author>
@@ -17,69 +17,18 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>introduce to Gitalk</title>
-    <link href="https://cody-kao.github.io/uncategorized/introduce-to-Gitalk/"/>
-    <id>https://cody-kao.github.io/uncategorized/introduce-to-Gitalk/</id>
-    <published>2026-01-16T09:05:01.000Z</published>
-    <updated>2026-01-16T12:25:25.741Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>test_four</title>
-    <link href="https://cody-kao.github.io/uncategorized/test-three/"/>
-    <id>https://cody-kao.github.io/uncategorized/test-three/</id>
-    <published>2026-01-15T08:31:11.000Z</published>
-    <updated>2026-01-16T12:25:21.283Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>first_post</title>
-    <link href="https://cody-kao.github.io/golang/web/first-post/"/>
-    <id>https://cody-kao.github.io/golang/web/first-post/</id>
-    <published>2026-01-13T09:14:20.000Z</published>
-    <updated>2026-01-16T12:25:18.833Z</updated>
-    
-    
-    <summary type="html">這是Golang教學文</summary>
-    
-    
-    
-    <category term="golang" scheme="https://cody-kao.github.io/categories/golang/"/>
-    
-    <category term="web" scheme="https://cody-kao.github.io/categories/golang/web/"/>
-    
-    
-    <category term="code" scheme="https://cody-kao.github.io/tags/code/"/>
-    
-    <category term="web" scheme="https://cody-kao.github.io/tags/web/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Hello World</title>
-    <link href="https://cody-kao.github.io/uncategorized/hello-world/"/>
-    <id>https://cody-kao.github.io/uncategorized/hello-world/</id>
-    <published>2026-01-13T09:05:15.510Z</published>
-    <updated>2026-01-15T15:03:45.776Z</updated>
+    <link href="https://cody-kao.github.io/%E7%A7%91%E6%99%AE/Hello-World/"/>
+    <id>https://cody-kao.github.io/%E7%A7%91%E6%99%AE/Hello-World/</id>
+    <published>2026-01-20T04:06:37.000Z</published>
+    <updated>2026-01-20T05:41:40.342Z</updated>
     
     
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;</summary>
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;還記得當時學習程式的第一段程式碼嗎?&lt;br&gt;嗯…讓我猜猜&lt;br&gt;一定是&lt;code&gt;Hello World&lt;/code&gt;對吧!&lt;br&gt;先不要著急問我怎麼知道的 也先把崇拜的目光收著&lt;br&gt;因為接下來我們將會了解這個專屬工程師的浪漫💖&lt;/p&gt;</summary>
     
     
+    
+    <category term="科普" scheme="https://cody-kao.github.io/categories/%E7%A7%91%E6%99%AE/"/>
     
     
   </entry>
