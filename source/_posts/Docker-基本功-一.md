@@ -170,6 +170,7 @@ docker rmi redis:latest
 | **Container** | `docker run -d --name my-container redis:latest` | 建立並啟動新的 container |
 |              | `docker ps`                                      | 查看正在運行的 container |
 |              | `docker ps -a`                                   | 查看所有 container（包括停止的） |
+|              | `docker logs <container>`                        | 查看該container所有日誌(常配合detached mode) |
 |              | `docker stop <container>`                        | 停止正在運行的 container |
 |              | `docker start <container>`                       | 啟動已停止的 container |
 |              | `docker restart <container>`                     | 重啟 container |
