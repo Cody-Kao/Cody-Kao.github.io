@@ -166,26 +166,25 @@ docker rmi redis:latest
 ### Docker 基本語法速查表
 
 | 類別         | 指令 / 範例                                          | 說明 |
-|--------------|---------------------------------------------------|------|
-| **Container** | `docker run -d --name my-container redis:latest` | 建立並啟動新的 container |
-|              | `docker ps`                                      | 查看正在運行的 container |
-|              | `docker ps -a`                                   | 查看所有 container（包括停止的） |
-|              | `docker logs <container>`                        | 查看該container所有日誌(常配合detached mode) |
-|              | `docker stop <container>`                        | 停止正在運行的 container |
-|              | `docker start <container>`                       | 啟動已停止的 container |
-|              | `docker restart <container>`                     | 重啟 container |
-|              | `docker exec -it <container> <command>`         | 在 container 內執行命令（例如redis-cli以直接操作redis） |
-|              | `docker rm <container>`                          | 刪除 container（需先停止） |
-|              | `docker container prune`                         | 刪除所有停止的 container |
-| **Image**     | `docker pull`                                 | 下載Image |
-| |`docker images`                                 | 列出所有 image |
-|              | `docker rmi <image>`                             | 刪除指定 image |
-|              | `docker rmi -f <image>`                          | 強制刪除 image（即使有 container 依賴） |
-|              | `docker image prune`                             | 刪除 dangling image |
-|              | `docker image prune -a`                          | 刪除所有未使用的 image |
-| **Port 映射** | `-p <host_port>:<container_port>`               | 將 container 內的 port 映射到 Host 
-| **快速清理** | `docker system prune`                             | 刪除未使用的 container、image、volume 等 |
-
+|:-------------|:--------------------------------------------------|:-----|
+| **Image**     | `docker pull`                                     | 下載 Image |
+|              | `docker images`                                   | 列出所有 image |
+|              | `docker rmi <image>`                              | 刪除指定 image |
+|              | `docker rmi -f <image>`                           | 強制刪除 image（即使有 container 依賴） |
+|              | `docker image prune`                              | 刪除 dangling image |
+|              | `docker image prune -a`                           | 刪除所有未使用的 image |
+| **Container** | `docker run -d --name my-container <image>` | 建立並在背景模式下啟動新的 container |
+|              | `docker ps`                                       | 查看正在運行的 container |
+|              | `docker ps -a`                                    | 查看所有 container（包括停止的） |
+|              | `docker logs <container>`                         | 查看該 container 所有日誌（常配合 detached mode） |
+|              | `docker stop <container>`                         | 停止正在運行的 container |
+|              | `docker start <container>`                        | 啟動已停止的 container |
+|              | `docker restart <container>`                      | 重啟 container |
+|              | `docker exec -it <container> <command>`          | 在 container 內執行命令（例如 redis-cli 以直接操作 Redis） |
+|              | `docker rm <container>`                           | 刪除 container（需先停止） |
+|              | `docker container prune`                          | 刪除所有停止的 container |
+| **Port 映射** | `-p <host_port>:<container_port>`                | 將 container 內的 port 映射到 Host |
+| **快速清理** | `docker system prune`                              | 刪除未使用的 container、image、volume 等 |
 
 下一集再跟大家分享Dockerfile以及製作自己的映象檔!
 
