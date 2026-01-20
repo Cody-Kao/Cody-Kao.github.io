@@ -14,11 +14,14 @@ categories: 科普
 因為接下來我們將會了解這個專屬工程師的浪漫💖
 <!--more-->
 
+## 緣起
+
 > 如果要用一句話來迎接一趟新世界的啟程 你會如何起頭  
 
-西元1972年，位於美國紐澤西州的諾基亞貝爾實驗室，一名傳奇工程師--布萊恩·克尼漢(Brian Kernighan)著手撰寫了一份內部檔案 **A Tutorial Introduction to the Language B** 而其中的B語言也就是我們日後所熟知的C語言的前身。  
-在這份報告的其中第一次提到了`Hello World`的字段，雖然在當時是一段作為使用外部變數(external variable)的示例，但也足以諭示著人類與電腦語言的深刻連結  
+西元1972年，位於美國紐澤西州的諾基亞貝爾實驗室，一名傳奇工程師--布萊恩·克尼漢(Brian Kernighan) 著手撰寫了一份內部檔案 **A Tutorial Introduction to the Language B** 而其中的B語言也就是我們日後所熟知的C語言的前身。  
+在這份報告的其中第一次提到了`Hello World`的字段，雖然在當時是一段作為使用外部變量(external variable)的示例，但也足以諭示著人類與電腦語言的深刻連結  
 
+##### B
 ```B
 main( ) {
 extrn a, b, c;
