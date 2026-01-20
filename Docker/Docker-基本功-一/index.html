@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#fff">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.google.com//css2?family=LXGW+WenKai+TC:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/black/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cody-kao.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":300,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"night-owl","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":false,"lazyload":true,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言有接觸過容器化(Containerization)的朋友們一定對一隻藍色小鯨魚🐳不陌生吧沒錯! 目前主流的容器化技術就是我們熟悉(也可能還不熟悉🤫)的Docker，當然還有Podman、LXC等等而這篇文章將會作為Docker系列的第一篇，所以相當新手友善，如果講到這邊還沒造成生理不適的話就放心地看下去吧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 基本功(一)">
+<meta property="og:url" content="https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/index.html">
+<meta property="og:site_name" content="Code with Cody">
+<meta property="og:description" content="前言有接觸過容器化(Containerization)的朋友們一定對一隻藍色小鯨魚🐳不陌生吧沒錯! 目前主流的容器化技術就是我們熟悉(也可能還不熟悉🤫)的Docker，當然還有Podman、LXC等等而這篇文章將會作為Docker系列的第一篇，所以相當新手友善，如果講到這邊還沒造成生理不適的話就放心地看下去吧">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cody-kao.github.io/images/Docker/docker-logo-blue.png">
+<meta property="og:image" content="https://cody-kao.github.io/images/Docker/Docker-engine-resume.png">
+<meta property="og:image" content="https://cody-kao.github.io/images/Docker/Docker-redis-image.png">
+<meta property="og:image" content="https://cody-kao.github.io/images/Docker/Docker-image.png">
+<meta property="og:image" content="https://cody-kao.github.io/images/Docker/Docker-ps.png">
+<meta property="og:image" content="https://cody-kao.github.io/images/Docker/Docker-ps-2.png">
+<meta property="og:image" content="https://cody-kao.github.io/images/Docker/Docker-ps-2-1.png">
+<meta property="og:image" content="https://cody-kao.github.io/images/Docker/Docker-port-mapping.png">
+<meta property="og:image" content="https://cody-kao.github.io/images/Docker/Docker-ps-a.png">
+<meta property="article:published_time" content="2026-01-20T06:38:23.000Z">
+<meta property="article:modified_time" content="2026-01-20T12:57:20.530Z">
+<meta property="article:author" content="Cody">
+<meta property="article:tag" content="Backend">
+<meta property="article:tag" content="Container">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cody-kao.github.io/images/Docker/docker-logo-blue.png">
+
+
+<link rel="canonical" href="https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/","path":"Docker/Docker-基本功-一/","title":"Docker 基本功(一)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Docker 基本功(一) | Code with Cody</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script><script src="/js/pjax.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&display=swap" rel="stylesheet">
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Code with Cody" type="application/atom+xml">
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Code with Cody</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">A place to share and learn</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>所有文章</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AFDocker"><span class="nav-number">2.</span> <span class="nav-text">什麼是Docker?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E8%88%87%E5%AE%89%E8%A3%9D"><span class="nav-number">3.</span> <span class="nav-text">下載與安裝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%96%8B%E5%95%9FDocker"><span class="nav-number">4.</span> <span class="nav-text">開啟Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AA%9E%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">基本語法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">6.</span> <span class="nav-text">總結</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-%E5%9F%BA%E6%9C%AC%E8%AA%9E%E6%B3%95%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="nav-number">6.1.</span> <span class="nav-text">Docker 基本語法速查表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AC%9D%E8%AC%9D%E9%96%B1%E8%AE%80%E5%88%B0%E9%80%99%E8%A3%A1%E7%9A%84%E4%BD%A0-%E5%A6%B3"><span class="nav-number">6.1.1.</span> <span class="nav-text">謝謝閱讀到這裡的你&#x2F;妳</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Cody"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Cody</p>
+  <div class="site-description" itemprop="description">Learning codes with me</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Cody-Kao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Cody-Kao" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:gg1671821@gmail.com" title="E-Mail → mailto:gg1671821@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Cody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code with Cody">
+      <meta itemprop="description" content="Learning codes with me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Docker 基本功(一) | Code with Cody">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker 基本功(一)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-01-20 14:38:23 / 修改時間：20:57:20" itemprop="dateCreated datePublished" datetime="2026-01-20T14:38:23+08:00">2026-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+        </span>
+    </span>
+
+  
+
+
+
+
+
+
+
+
+<span class="post-meta-break"></span>
+
+<span class="post-meta-item">
+    <span class="post-meta-item-icon">
+        <i class="fa-regular fa-comment-dots"></i>
+    </span>
+    <span class="post-meta-item-text post-meta-count">
+        留言: 0
+    </span>
+</span>
+
+<span class="post-meta-item">
+    <span class="post-meta-item-icon">
+        <i class="fa-regular fa-thumbs-up"></i>
+    </span>
+    <span class="post-meta-item-text post-meta-count">
+        0
+    </span>
+</span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.4k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>9 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>有接觸過容器化(Containerization)的朋友們一定對一隻藍色小鯨魚🐳不陌生吧<br>沒錯! 目前主流的容器化技術就是我們熟悉(也可能還不熟悉🤫)的Docker，當然還有Podman、LXC等等<br>而這篇文章將會作為Docker系列的第一篇，所以相當新手友善，如果講到這邊還沒造成生理不適的話就放心地看下去吧</p>
+<span id="more"></span>
+
+<h2 id="什麼是Docker"><a href="#什麼是Docker" class="headerlink" title="什麼是Docker?"></a>什麼是Docker?</h2><p><img data-src="/images/Docker/docker-logo-blue.png" alt="Docker Logo" title="Docker Logo"><br>要完全解釋甚麼是Docker前應該先認識何謂<strong>容器(Container)</strong> 以及與之相近的<strong>虛擬機(Virtual Machine)</strong> 分別是甚麼，這裡先容我挖個坑之後再來補齊這個概念。不過簡單來說呢<strong>容器</strong>的存在就是為了要解決一個重要的工程問題<code>It works on my machine</code>，想必大家或多或少都有遇過這樣的情況: 本地測試的時候一切都運行的好好的，但為什麼上線到運行環境、另一台電腦上甚至是<del>給主管demo</del>的時候就出狀況了呢?而我們又不可能把整台電腦置換過去(也不知道怎麼移殖環境)，所以這時候就會需要用到這些容器化的技術，把所有運行會需要的依賴以及版本設定等等全部包裝成一個唯讀的模板檔案，這樣就可以在任何機器上依照模板建構執行環境並執行其應用服務，而這其中其實牽涉到了三個很重要的概念</p>
+<ul>
+<li>映像檔(Image)</li>
+<li>容器(Container)</li>
+<li>倉庫(Repository)</li>
+</ul>
+<p>映像檔可以把它想成是創建容器所需要的藍圖 也就是先前提到的模板，我們要先有藍圖才知道如何”建立”出容器並”運行”它，他們就像設計圖跟房子的關係，所以同一份映像檔可以創造出多個容器，而一台電腦基本上可以同時運行成百上千個容器都不是問題! 而建立出來的容器就像一個<strong>應用程式</strong>一樣，你可以選擇運行或是停止它。倉庫的概念不用我多說，就是存放這些映像檔的地方，它也分成公開倉庫(public)與私有倉庫(private)兩種類型。<br>當然用說的相當簡單，可實際該如何操作呢? 讓我們一步一步了解</p>
+<h2 id="下載與安裝"><a href="#下載與安裝" class="headerlink" title="下載與安裝"></a>下載與安裝</h2><p>各位請容我偷個懶🫠 <a target="_blank" rel="noopener" href="https://www.docker.com/get-started/">官方網站</a>已經把安裝步驟講得非常詳細了 照著操作基本上不會出問題，但值得一提的是如果是Windows&#x2F;Mac用戶則需要多安裝一個Docker Desktop否則無法順利運行</p>
+<h2 id="開啟Docker"><a href="#開啟Docker" class="headerlink" title="開啟Docker"></a>開啟Docker</h2><p>下載安裝完Docker後我們可以到終端機上輸入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker --version</span><br></pre></td></tr></table></figure>
+<p>如果成功印出版本訊息就表示安裝成功咯</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Docker version 25.0.3, build 4debf41</span><br></pre></td></tr></table></figure>
+<p>之後開啟Docker Desktop並運行它<br><img data-src="/images/Docker/Docker-engine-resume.png" alt="Docker Desktop" title="Docker Desktop"></p>
+<h2 id="基本語法"><a href="#基本語法" class="headerlink" title="基本語法"></a>基本語法</h2><p>一開始下載完Docker會看到本地倉庫應該是空空如也的，這時候你會好奇難道我要純手工自己做映像檔(Image)才能開啟嗎? 非也，其實已經有許多現成的映像檔能夠直接抓下來使用喔(也就是從網路上的公開倉庫抓取)，最直接的範例就是<a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker hub</a><br>今天的範例就讓我們使用現成的Image來啟動redis服務吧，至於<a target="_blank" rel="noopener" href="https://www.ibm.com/think/topics/redis">redis</a>是甚麼我日後有機會再來介紹一下，但簡單來說它就是種key-value store，屬於NoSQL的一種類型</p>
+<p>首先先抓取redis Image，輸入<code>docker pull [REPOSITORY:TAG]</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis:latest</span><br></pre></td></tr></table></figure>
+<p>其中REPOSITORY就是去Docker hub查詢redis後顯示的名稱<br><img data-src="/images/Docker/Docker-redis-image.png" alt="Docker redis Image" title="Docker redis Image"><br>而tag則是可以指定，在底下列出的”Supported tags and respective Dockerfile links”都可以選用，若想用最新的版本則輸入 <strong>latest</strong></p>
+<p>下載完成後可以輸入docker images查看本機現有的所有映像檔</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<p>應該會看到剛剛下載好的redis<br>(因為我還有其他Image所以會一併顯示出來)<br><img data-src="/images/Docker/Docker-image.png" alt="Docker Image" title="Docker Image">   </p>
+<p>之後我們建構這個Image成Container並且運行它<br><code>docker run [REPOSITORY:TAG]</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run redis:latest</span><br></pre></td></tr></table></figure>
+<p>這時候應該會看到我們的終端機被他占用住了!<br>而這顯然在開發上面相當不方便，我們先<em>ctrl+C</em>或<em>Command (⌘) + C</em>把它停掉，然後使用<strong>flag</strong>去設定讓他變成背景模式（detached）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d redis:latest</span><br></pre></td></tr></table></figure>
+<p>這時候會打印出剛剛執行的container ID，就表示正在背景執行了</p>
+<p>這時候我們再透過終端機查看<strong>正在運行</strong>的所有Container</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<p><img data-src="/images/Docker/Docker-ps.png" alt="Docker ps" title="Docker ps"><br>會看到我們的Container的ID、Image名稱、port、以及一個奇怪的Container名稱，但我們能不能給每個運行的Container自訂名稱呢，答案是肯定的，也是一樣透過flag去設置 <code>--name [containerName]</code><br>我們先輸入 <code>docker stop [containerID]</code> 或是 <code>docker stop [containerName]</code> 來停止服務</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop 33b5c1407bce</span><br></pre></td></tr></table></figure>
+<p>接著重啟服務</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name my-redis-server redis:latest</span><br></pre></td></tr></table></figure>
+<p>這時再輸入<code>docker ps</code><br><img data-src="/images/Docker/Docker-ps-2.png" alt="Docker ps" title="Docker ps"><br>就看到my-redis-server成功顯示啦  </p>
+<p>接著聰明的你就會想說要連線至創建好的redis server(預設於6379 port)，於是輸入以下的指令嘗試連線:  </p>
+<p>(如果有裝redis-cli)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h 127.0.0.1 -p 6379</span><br></pre></td></tr></table></figure>
+<p>Linux users</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc localhost 6379</span><br></pre></td></tr></table></figure>
+<p>或是直接輸入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --<span class="built_in">rm</span> redis redis-cli -h host.docker.internal -p 6379</span><br></pre></td></tr></table></figure>
+<p>但發現明明服務已經啟動了卻如何也連不上</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could not connect to Redis at host.docker.internal:6379: Connection refused</span><br></pre></td></tr></table></figure>
+<p>那是因為我們並沒有使Container的<strong>6379 port</strong>對外曝露，而這件事也可以從我們之前透過<code>docker ps</code>打印的資訊得知<br><img data-src="/images/Docker/Docker-ps-2-1.png" alt="Docker ps" title="Docker ps"><br>一般來說，redis服務預設是使用TCP監聽<strong>6379 port</strong>，就像是http服務跑在80 port，但是圖中顯示<code>6379/tcp</code>代表雖然Container本身在監聽這個端口，但我們並沒有指派一個host port讓Docker幫我們轉接出來。為此我們指派host的6379 port去給Container(建議使用同樣的host port去對應container port) 我們一樣使用flag: <strong>-p hostPort:containerPort</strong>去指派  </p>
+<p><strong>Port Mapping in Docker</strong><br><i style="font-size:.75rem;">source: <a target="_blank" rel="noopener" href="https://medium.com/@ppran234/why-do-we-bind-ports-in-docker-4f2a62ea2e69">https://medium.com/@ppran234/why-do-we-bind-ports-in-docker-4f2a62ea2e69</a></i><br><img data-src="/images/Docker/Docker-port-mapping.png" alt="Docker port mapping" title="Docker port mapping"> </p>
+<p>在著手設定端口映射之前，我們先停止當前的容器，再輸入<code>docker ps -a</code>把所有的Container打印出來(先前的<code>docker ps</code>只能印出正在執行的)<br><img data-src="/images/Docker/Docker-ps-a.png" alt="Docker ps -a" title="Docker ps -a"><br>之後先把所有停止的容器刪除(目前會有3個)<br>至於為甚麼這麼多呢? 因為每次我們執行<code>docker run</code>都會基於Image建立並啟動一個新的container，而若要指定啟動某個已經建立好的container則是使用<code>docker start</code>的指令。  </p>
+<p>我們輸入以下指令把容器刪除</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">rm</span> id_1 id_2 id_3</span><br></pre></td></tr></table></figure>
+<p>然後再次輸入<code>docker ps -a</code>檢查所有容器都被清空了  </p>
+<p>我們就接著執行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name my-redis-server -p 6379:6379 redis:latest</span><br></pre></td></tr></table></figure>
+<p>這時候輸入<code>docker ps</code>並查看port應該會顯示<strong>0.0.0.0:6379-&gt;6379&#x2F;tcp</strong>這樣就表示端口有正確對外映射<br>接下來我們模擬使用該redis服務，寫入一筆資料並讀取出。我們先輸入以下指令進入到redis的終端去<br><code>docker exec -it [containerName] redis-cli</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it my-redis-server redis-cli</span><br></pre></td></tr></table></figure>
+<p>接著輸入以下redis命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET myKey <span class="string">&quot;Hello Redis&quot;</span></span><br></pre></td></tr></table></figure>
+<p>然後新開一個終端機視窗，輸入以下命令連線到6379端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --<span class="built_in">rm</span> redis redis-cli -h host.docker.internal -p 6379</span><br></pre></td></tr></table></figure>
+<p>連線成功後測試一下是否能正確把剛剛寫入的資料讀取出</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET myKey</span><br></pre></td></tr></table></figure>
+<p>若出現 <strong>“Hello Redis”</strong> 代表成功咯! 送給自己200個掌聲👏<br>然後我們可以退出redis連線並且把container關閉</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop my-redis-server</span><br></pre></td></tr></table></figure>
+<p>然後可以放心使用<code>docker rm</code>把停止的container刪除咯</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">rm</span> my-redis-server</span><br></pre></td></tr></table></figure>
+<p>最一開始下載的redis Image也可以透過<code>docker rmi [ImageID]</code>或是<code>docker rmi [REPOSITORY:TAG]</code>刪除</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi redis:latest</span><br></pre></td></tr></table></figure>
+
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>以上的語法都相當簡單但卻非常實用，應對基本的日常開發是沒甚麼問題的! 這邊我也幫大家整理的一個表格，可以快速查閱基本語法</p>
+<h3 id="Docker-基本語法速查表"><a href="#Docker-基本語法速查表" class="headerlink" title="Docker 基本語法速查表"></a>Docker 基本語法速查表</h3><table>
+<thead>
+<tr>
+<th>類別</th>
+<th>指令 &#x2F; 範例</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Container</strong></td>
+<td><code>docker run -d --name my-container redis:latest</code></td>
+<td>建立並啟動新的 container</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker ps</code></td>
+<td>查看正在運行的 container</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker ps -a</code></td>
+<td>查看所有 container（包括停止的）</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker stop &lt;container&gt;</code></td>
+<td>停止正在運行的 container</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker start &lt;container&gt;</code></td>
+<td>啟動已停止的 container</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker restart &lt;container&gt;</code></td>
+<td>重啟 container</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker exec -it &lt;container&gt; &lt;command&gt;</code></td>
+<td>在 container 內執行命令（例如redis-cli以直接操作redis）</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker rm &lt;container&gt;</code></td>
+<td>刪除 container（需先停止）</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker container prune</code></td>
+<td>刪除所有停止的 container</td>
+</tr>
+<tr>
+<td><strong>Image</strong></td>
+<td><code>docker pull</code></td>
+<td>下載Image</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker images</code></td>
+<td>列出所有 image</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker rmi &lt;image&gt;</code></td>
+<td>刪除指定 image</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker rmi -f &lt;image&gt;</code></td>
+<td>強制刪除 image（即使有 container 依賴）</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker image prune</code></td>
+<td>刪除 dangling image</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker image prune -a</code></td>
+<td>刪除所有未使用的 image</td>
+</tr>
+<tr>
+<td><strong>Port 映射</strong></td>
+<td><code>-p &lt;host_port&gt;:&lt;container_port&gt;</code></td>
+<td>將 container 內的 port 映射到 Host</td>
+</tr>
+<tr>
+<td><strong>快速清理</strong></td>
+<td><code>docker system prune</code></td>
+<td>刪除未使用的 container、image、volume 等</td>
+</tr>
+</tbody></table>
+<p>下一集再跟大家分享Dockerfile以及製作自己的映象檔!</p>
+<div class="post-end-notification">
+  <div class="note info no-icon"><h4 id="謝謝閱讀到這裡的你-妳"><a href="#謝謝閱讀到這裡的你-妳" class="headerlink" title="謝謝閱讀到這裡的你&#x2F;妳"></a>謝謝閱讀到這裡的你&#x2F;妳</h4><p>如果覺得文章對您有幫助不妨按個<strong>喜歡</strong><br>若有任何疑問也歡迎底下<strong>留言</strong></p>
+</div>
+</div>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+
+
+
+
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+              <a href="/tags/Container/" rel="tag"># Container</a>
+              <a href="/tags/Backend/" rel="tag"># Backend</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E7%A7%91%E6%99%AE/Hello-World/" rel="prev" title="Hello World">
+                  <i class="fa fa-angle-left"></i> Hello World
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">若要轉載文章，麻煩請保留原作者名稱與原始連結。</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">3k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">11 分鐘</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#000',
+  buttonColorLight: '#314c70',
+  saveInCookies: true,
+  label: '<i id="darkmode-icon" class="fa-solid fa-moon"></i>',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Cody-Kao","repo":"Cody-Kao.github.io-comment","client_id":"Ov23lixrz47vhBfmnqst","client_secret":"cab7b64ef3517e50a7314690fceb23c06aaaa508","admin_user":"Cody-Kao","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"body":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"cdf7d6d22ddf614d99aa2bd37b0bebde"}</script>
+<script src="/js/third-party/comments/gitalk.js" defer></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const b2t = document.querySelector(".back-to-top");
+  if (!b2t) return;
+
+  function toggleB2T() {
+    const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    if (scrollPercent > 10) {
+      b2t.style.bottom = "30px"
+    } else {
+      b2t.style.bottom = "-1000px"
+    }
+  }
+
+  // Initial check
+  toggleB2T();
+
+  window.addEventListener("scroll", toggleB2T);
+});
+</script>
+
+<script>
+/* expand and collapse code block; using event delegation */
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.expand-btn');
+  if (!btn) {
+    return;
+  }
+  const figure = btn.closest('figure.highlight');
+  const cover = btn.previousElementSibling;
+
+  if (!figure || !cover) {
+    console.log('oops');
+    return;
+  }
+
+  const foldHeight = '500px';
+  const expanded = figure.classList.toggle('expanded');
+  btn.style.display = "block";
+  if (expanded) {
+    figure.style.maxHeight = '999999px';
+    cover.style.display = 'none';
+    btn.innerHTML = '<i class="fa fa-chevron-up"></i>';
+  } else {
+    figure.style.maxHeight = foldHeight;
+    cover.style.display = 'block';
+    btn.innerHTML = '<i class="fa fa-chevron-down"></i>';
+  }
+});
+</script>
+
+
+<script>
+// toggle dark-mode icon 
+const icon = document.getElementById('darkmode-icon');
+
+function updateIcon() {
+  if (document.body.classList.contains('darkmode--activated')) {
+    icon.className = 'fa-solid fa-sun'; 
+    icon.style = "color: #FFD43B;"
+  } else {
+    icon.className = 'fa-solid fa-moon';
+    icon.style = "color: #FFD43B;"
+  }
+}
+
+// initial sync (VERY IMPORTANT)
+updateIcon();
+
+// observe body class changes
+const observer = new MutationObserver(updateIcon);
+observer.observe(document.body, {
+  attributes: true,
+  attributeFilter: ['class']
+});
+</script>
+
+<script>
+  // handling thumbs up 
+  const OWNER = 'Cody-Kao';
+  const REPO = 'Cody-Kao.github.io-comment';
+
+  // Check if this post is already liked
+  function isLiked(issueNumber) {
+    const liked = JSON.parse(localStorage.getItem('gh_liked_posts') || '[]');
+    return liked.includes(issueNumber.toString());
+  }
+
+  // Mark a post as liked
+  function markLiked(issueNumber) {
+    const liked = JSON.parse(localStorage.getItem('gh_liked_posts') || '[]');
+    if (!liked.includes(issueNumber)) {
+      liked.push(issueNumber);
+      localStorage.setItem('gh_liked_posts', JSON.stringify(liked));
+    }
+  }
+
+  // Check if user is logged in (via sessionStorage token)
+  function isLoggedIn() {
+    return !!sessionStorage.getItem('gh_token');
+  }
+
+  // Open GitHub login popup
+  async function login() {
+    const clientId = 'Ov23lixrz47vhBfmnqst';
+    const redirectUri = 'https://github-like-oauth.cody-kao.workers.dev/oauth/github';
+
+    const origin = window.location.origin;
+
+    const url =
+      `https://github.com/login/oauth/authorize` +
+      `?client_id=${clientId}` +
+      `&redirect_uri=${encodeURIComponent(redirectUri + '?origin=' + origin)}` +
+      `&scope=public_repo`;
+
+    const popup = window.open(url, '_blank', 'width=500,height=600');
+
+    window.addEventListener('message', function handler(event) {
+      if (event.origin !== 'https://github-like-oauth.cody-kao.workers.dev') return;
+
+      if (event.data?.token) {
+        sessionStorage.setItem('gh_token', event.data.token);
+        popup?.close();
+        window.removeEventListener('message', handler);
+      }
+    });
+  }
+
+  // Send thumbs-up reaction
+  async function postLike(issueNumber) {
+    const token = sessionStorage.getItem('gh_token');
+    if (!token) {
+      throw new Error('No GitHub token');
+    }
+
+    const res = await fetch(
+      `https://api.github.com/repos/${OWNER}/${REPO}/issues/${issueNumber}/reactions`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+
+          // THIS IS THE KEY FIX 👇
+          Accept: 'application/vnd.github.squirrel-girl-preview+json',
+
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content: '+1' }),
+      }
+    );
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message);
+    }
+
+    markLiked(issueNumber);
+  }
+
+
+  // Initialize button UI on page load
+  function initLikeButtons() {
+    document.querySelectorAll('.gh-like-btn').forEach((btn) => {
+      const issueNumber = btn.dataset.issue;
+
+      if (isLiked(issueNumber)) {
+        btn.innerHTML = '<i class="fa-solid fa-thumbs-up"></i> <span class="btn-text">心意已送達</span>';
+        btn.disabled = true;
+        btn.style.pointerEvents = "none";
+      }
+    });
+  }
+
+  // Event listener for like buttons
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.gh-like-btn');
+    if (!btn) return;
+    console.log('thumb-up button is clicked');
+    const issueNumber = btn.dataset.issue;
+
+    if (isLiked(issueNumber)) {
+      console.log("post is already liked")
+      return; // Already liked
+    } 
+
+    if (!isLoggedIn()) {
+      console.log('user not logged in yet');
+      await login();
+    }
+
+    btn.disabled = true;
+
+    try {
+      await postLike(issueNumber);
+      btn.innerHTML = '<i class="fa-solid fa-thumbs-up"></i> <span class="btn-text">心意已送達</span>';
+      btn.style.pointerEvents = "none";
+    } catch (err) {
+      console.error(err);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  // Run on page load
+  initLikeButtons();
+</script>
+
+<script>
+  function onPageReady() {
+    initLikeButtons();
+  }
+
+  // Normal page load
+  document.addEventListener('DOMContentLoaded', onPageReady);
+
+  // PJAX navigation
+  document.addEventListener('pjax:complete', onPageReady);
+  document.addEventListener('pjax:end', onPageReady);
+</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"react":{"opacity":0.9}});</script></body>
+</html>

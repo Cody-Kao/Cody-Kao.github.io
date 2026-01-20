@@ -1588,7 +1588,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #a714ff;
+    background: #d9f1aa;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -3556,4 +3556,8 @@ body.darkmode--activated .gh-like-btn:hover {
 /*  bookmark color in dark mode*/
 body.darkmode--activated .book-mark-link::before {
   color: #eee;
+}
+/* fancy box image */
+.fancybox img {
+  margin-bottom: 0;
 }

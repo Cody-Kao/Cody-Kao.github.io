@@ -6,7 +6,7 @@
   <link href="https://cody-kao.github.io/atom.xml" rel="self"/>
   
   <link href="https://cody-kao.github.io/"/>
-  <updated>2026-01-20T05:41:40.342Z</updated>
+  <updated>2026-01-20T12:57:20.530Z</updated>
   <id>https://cody-kao.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker 基本功(一)</title>
+    <link href="https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/"/>
+    <id>https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/</id>
+    <published>2026-01-20T06:38:23.000Z</published>
+    <updated>2026-01-20T12:57:20.530Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;有接觸過容器化(Containerization)的朋友們一定對一隻藍色小鯨魚🐳不陌生吧&lt;br&gt;沒錯! 目前主流的容器化技術就是我們熟悉(也可能還不熟悉🤫)的Docker，當然還有Podman、LXC等等&lt;br&gt;而這篇文章將會作為Docker系列的第一篇，所以相當新手友善，如果講到這邊還沒造成生理不適的話就放心地看下去吧&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Docker" scheme="https://cody-kao.github.io/categories/Docker/"/>
+    
+    
+    <category term="Docker" scheme="https://cody-kao.github.io/tags/Docker/"/>
+    
+    <category term="Container" scheme="https://cody-kao.github.io/tags/Container/"/>
+    
+    <category term="Backend" scheme="https://cody-kao.github.io/tags/Backend/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
