@@ -2,7 +2,7 @@ name: Sync Comments & Likes
 
 on:
   schedule:
-    - cron: "0 * * * *" # every hour (UTC)
+    - cron: "0 */6 * * *" # every 6 hours (UTC)
   workflow_dispatch:
 
 jobs:
@@ -33,7 +33,7 @@ jobs:
         id: diff
         run: |
           FILE="source/_data/gitalk_issues.json"
-      
+
           if [ ! -f "$FILE" ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
             echo "Data file missing → treat as changed"

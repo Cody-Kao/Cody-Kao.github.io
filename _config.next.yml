@@ -711,8 +711,8 @@ gitalk:
   enable: true
   github_id: Cody-Kao # GitHub repo owner
   repo: Cody-Kao.github.io-comment # Repository name to store issues
-  client_id: Ov23lixrz47vhBfmnqst # GitHub Application Client ID
-  client_secret: cab7b64ef3517e50a7314690fceb23c06aaaa508 # GitHub Application Client Secret
+  client_id: ${{ secrets.GITHUB_CLIENT_ID }} # GitHub Application Client ID
+  client_secret: ${{ secrets.GITHUB_CLIENT_SECRET }} # GitHub Application Client Secret
   admin_user: Cody-Kao # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
   distraction_free_mode: true # Facebook-like distraction free mode
   # When the official proxy is not available, you can change it to your own proxy address

@@ -1,9 +1,9 @@
 ---
-title: Docker 基本功(一)
+title: Docker-基本功(一)
 layout: post
 date: 2026-01-20 14:38:23
 tags: [Docker, Container, Backend]
-categories: [Docker]
+categories: [Docker] 
 ---
 
 ## 前言
@@ -107,7 +107,7 @@ Could not connect to Redis at host.docker.internal:6379: Connection refused
 ```
 那是因為我們並沒有使Container的**6379 port**對外曝露，而這件事也可以從我們之前透過`docker ps`打印的資訊得知  
 ![Docker ps](/images/Docker/Docker-ps-2-1.png "Docker ps")  
-一般來說，redis服務預設是使用TCP監聽**6379 port**，就像是http服務跑在80 port，但是圖中顯示`6379/tcp`代表雖然Container本身在監聽這個端口，但我們並沒有指派一個host port讓Docker幫我們轉接出來。為此我們指派host的6379 port去給Container(建議使用同樣的host port去對應container port) 我們一樣使用flag: **-p hostPort:containerPort**去指派  
+一般來說，redis服務預設是使用TCP監聽**6379 port**，就像是http服務跑在80 port，但是圖中顯示`6379/tcp`代表雖然Container本身在監聽這個端口，但我們並沒有指派一個host port讓Docker幫我們轉接出來。為此我們指派host的6379 port去給Container(建議使用同樣的host port去對應container port) 我們使用 `-p hostPort:containerPort` 去指派，這個行為叫 **port mapping**
 
 **Port Mapping in Docker**  
 <i style="font-size:.75rem;">source: https://medium.com/@ppran234/why-do-we-bind-ports-in-docker-4f2a62ea2e69</i>  
@@ -186,7 +186,7 @@ docker rmi redis:latest
 | **Port 映射** | `-p <host_port>:<container_port>`                | 將 container 內的 port 映射到 Host |
 | **快速清理** | `docker system prune`                              | 刪除未使用的 container、image、volume 等 |
 
-下一集再跟大家分享Dockerfile以及製作自己的映象檔!
+下一集再跟大家分享更多實用的語法，順便把這邊出現的進階語法一併補充
 
 <div class="post-end-notification">
   {% note info no-icon %}
