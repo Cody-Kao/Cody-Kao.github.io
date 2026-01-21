@@ -23,25 +23,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cody-kao.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":300,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"night-owl","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":false,"lazyload":true,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="Learning codes with me">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Code with Cody">
-<meta property="og:url" content="https://cody-kao.github.io/tags/Docker/index.html">
+    <meta name="description" content="前言是否每次執行了Docker命令 或是透過容器化解決了日常開發需求的難題後總不禁去想這一切是如何辦到的?還是依然不了解為甚麼要安裝Docker Desktop?或是不清楚Container以及Docker Engine究竟是什麼?今天透過這篇文章一次釐清! 內容保證不會過於學術艱澀因為我也沒那麼厲害準備好嘔吐袋 我們馬上開始!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Container、Docker Engine 與 Docker Desktop：一次釐清角色與執行流程">
+<meta property="og:url" content="https://cody-kao.github.io/Docker/Container%E3%80%81Docker-Engine-%E8%88%87-Docker-Desktop%EF%BC%9A%E4%B8%80%E6%AC%A1%E9%87%90%E6%B8%85%E8%A7%92%E8%89%B2%E8%88%87%E5%9F%B7%E8%A1%8C%E6%B5%81%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Code with Cody">
-<meta property="og:description" content="Learning codes with me">
+<meta property="og:description" content="前言是否每次執行了Docker命令 或是透過容器化解決了日常開發需求的難題後總不禁去想這一切是如何辦到的?還是依然不了解為甚麼要安裝Docker Desktop?或是不清楚Container以及Docker Engine究竟是什麼?今天透過這篇文章一次釐清! 內容保證不會過於學術艱澀因為我也沒那麼厲害準備好嘔吐袋 我們馬上開始!">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-01-21T04:36:16.000Z">
+<meta property="article:modified_time" content="2026-01-21T05:28:59.293Z">
 <meta property="article:author" content="Cody">
-<meta property="article:tag" content="Backend, Frontend, Web, App">
+<meta property="article:tag" content="Container">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="VM">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://cody-kao.github.io/tags/Docker/">
+<link rel="canonical" href="https://cody-kao.github.io/Docker/Container%E3%80%81Docker-Engine-%E8%88%87-Docker-Desktop%EF%BC%9A%E4%B8%80%E6%AC%A1%E9%87%90%E6%B8%85%E8%A7%92%E8%89%B2%E8%88%87%E5%9F%B7%E8%A1%8C%E6%B5%81%E7%A8%8B/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":"","permalink":"","path":"tags/Docker/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://cody-kao.github.io/Docker/Container%E3%80%81Docker-Engine-%E8%88%87-Docker-Desktop%EF%BC%9A%E4%B8%80%E6%AC%A1%E9%87%90%E6%B8%85%E8%A7%92%E8%89%B2%E8%88%87%E5%9F%B7%E8%A1%8C%E6%B5%81%E7%A8%8B/","path":"Docker/Container、Docker-Engine-與-Docker-Desktop：一次釐清角色與執行流程/","title":"Container、Docker Engine 與 Docker Desktop：一次釐清角色與執行流程"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>標籤: Docker | Code with Cody</title>
+<title>Container、Docker Engine 與 Docker Desktop：一次釐清角色與執行流程 | Code with Cody</title>
   
 
 
@@ -157,7 +161,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目錄
@@ -170,6 +174,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A6%8B%E5%90%8D%E8%A9%9E"><span class="nav-number">2.</span> <span class="nav-text">常見名詞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Container-%E8%88%87-VM-%E7%9A%84%E6%9C%AC%E8%B3%AA%E5%B7%AE%E7%95%B0"><span class="nav-number">3.</span> <span class="nav-text">Container 與 VM 的本質差異</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VM%EF%BC%88Virtual-Machine%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">VM（Virtual Machine）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Container"><span class="nav-number">3.2.</span> <span class="nav-text">Container</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Container-%E7%82%BA%E4%BB%80%E9%BA%BC%E4%B8%80%E5%AE%9A%E9%9C%80%E8%A6%81-Linux-Kernel%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">Container 為什麼一定需要 Linux Kernel？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Engine-%E6%98%AF%E4%BB%80%E9%BA%BC%E8%A7%92%E8%89%B2%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">Docker Engine 是什麼角色？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%A3-Docker-Desktop-%E5%8F%88%E6%98%AF%E5%81%9A%E4%BB%80%E9%BA%BC%E7%9A%84%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">那 Docker Desktop 又是做什麼的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Container-%E5%85%A7%E7%9A%84%E6%8C%87%E4%BB%A4%E5%A4%A7%E8%87%B4%E6%98%AF%E6%80%8E%E9%BA%BC%E5%9F%B7%E8%A1%8C%E7%9A%84%EF%BC%9F"><span class="nav-number">7.</span> <span class="nav-text">Container 內的指令大致是怎麼執行的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B0%A1%E5%96%AE%E7%B8%BD%E7%B5%90%E8%A7%92%E8%89%B2%E5%88%86%E5%B7%A5"><span class="nav-number">8.</span> <span class="nav-text">簡單總結角色分工</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B5%90%E8%AA%9E"><span class="nav-number">9.</span> <span class="nav-text">結語</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AC%9D%E8%AC%9D%E9%96%B1%E8%AE%80%E5%88%B0%E9%80%99%E8%A3%A1%E7%9A%84%E4%BD%A0-%E5%A6%B3"><span class="nav-number">9.1.</span> <span class="nav-text">謝謝閱讀到這裡的你&#x2F;妳</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -222,111 +227,237 @@
 
     </div>
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">Docker
-          <small>標籤</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://cody-kao.github.io/Docker/Container%E3%80%81Docker-Engine-%E8%88%87-Docker-Desktop%EF%BC%9A%E4%B8%80%E6%AC%A1%E9%87%90%E6%B8%85%E8%A7%92%E8%89%B2%E8%88%87%E5%9F%B7%E8%A1%8C%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Cody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code with Cody">
+      <meta itemprop="description" content="Learning codes with me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Container、Docker Engine 與 Docker Desktop：一次釐清角色與執行流程 | Code with Cody">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Container、Docker Engine 與 Docker Desktop：一次釐清角色與執行流程
         </h1>
-      </div>
 
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2026</span>
+
+      <time title="創建時間：2026-01-21 12:36:16 / 修改時間：13:28:59" itemprop="dateCreated datePublished" datetime="2026-01-21T12:36:16+08:00">2026-01-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+        </span>
+    </span>
+
+  
+
+
+
+
+
+
+
+
+<span class="post-meta-break"></span>
+
+<span class="post-meta-item">
+    <span class="post-meta-item-icon">
+        <i class="fa-regular fa-comment-dots"></i>
+    </span>
+    <span class="post-meta-item-text post-meta-count">
+        留言 0
+    </span>
+</span>
+
+<span class="post-meta-item">
+    <span class="post-meta-item-icon">
+        <i class="fa-regular fa-thumbs-up"></i>
+    </span>
+    <span class="post-meta-item-text post-meta-count">
+        0
+    </span>
+</span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>872</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>是否每次執行了Docker命令 或是透過容器化解決了日常開發需求的難題後總不禁去想這一切是如何辦到的?<br>還是依然不了解為甚麼要安裝Docker Desktop?<br>或是不清楚Container以及Docker Engine究竟是什麼?<br>今天透過這篇文章一次釐清! 內容保證不會過於學術艱澀<del>因為我也沒那麼厲害</del><br>準備好嘔吐袋 我們馬上開始!</p>
+<span id="more"></span>
+
+<h2 id="常見名詞"><a href="#常見名詞" class="headerlink" title="常見名詞"></a>常見名詞</h2><p>在學習 Docker 的過程中，常常會出現幾個看似相關、實際上層次不同的名詞：</p>
+<ul>
+<li>Container</li>
+<li>Docker Engine</li>
+<li>Docker Desktop</li>
+<li>VM</li>
+<li>Kernel</li>
+</ul>
+<p>這篇文章的目標是 <strong>釐清它們各自的角色</strong>，以及在 <strong>非 Linux 作業系統上，container 是如何被執行的</strong>  </p>
+<h2 id="Container-與-VM-的本質差異"><a href="#Container-與-VM-的本質差異" class="headerlink" title="Container 與 VM 的本質差異"></a>Container 與 VM 的本質差異</h2><p>在概念上，可以用一句話區分：</p>
+<blockquote>
+<p><strong>VM 是硬體層級的抽象，Container 是 OS Kernel 層級的抽象</strong></p>
+</blockquote>
+<h3 id="VM（Virtual-Machine）"><a href="#VM（Virtual-Machine）" class="headerlink" title="VM（Virtual Machine）"></a>VM（Virtual Machine）</h3><ul>
+<li>模擬 CPU、記憶體、磁碟、網卡等硬體</li>
+<li>內部有 <strong>完整的 Guest OS 與自己的 kernel</strong></li>
+<li>隔離性強，但成本高、效能較低</li>
+</ul>
+<p>Host OS<br>&nbsp; └── Hypervisor<br>&nbsp; &nbsp; └──  Virtual Hardware<br>&nbsp; &nbsp; &nbsp; └── Guest OS (Kernel)<br>&nbsp; &nbsp; &nbsp; &nbsp; └── Application</p>
+<hr>
+<h3 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h3><ul>
+<li>沒有自己的 kernel</li>
+<li>本質上是 <strong>被 namespace &#x2F; cgroup 隔離的 process</strong></li>
+<li>與 Host 共用同一個 kernel</li>
+<li>啟動快、效能接近原生</li>
+</ul>
+<p>Host OS (Linux Kernel)<br>&nbsp; └── Container Runtime<br>&nbsp; &nbsp; └── Application (Process)  </p>
+<h2 id="Container-為什麼一定需要-Linux-Kernel？"><a href="#Container-為什麼一定需要-Linux-Kernel？" class="headerlink" title="Container 為什麼一定需要 Linux Kernel？"></a>Container 為什麼一定需要 Linux Kernel？</h2><blockquote>
+<p><strong>Linux-based container 只能執行在 Linux kernel 上</strong></p>
+</blockquote>
+<p>Container本身 <strong>不包含 kernel</strong>，<br>而是依附於其所屬作業系統的 kernel 來處理系統呼叫(syscall)<br>在 Docker 的常見使用情境中，這通常指的是 <strong>Linux kernel</strong>(99%的Image都是由linux-based)</p>
+<p>這也是為什麼：</p>
+<ul>
+<li>Linux 主機可以直接跑 Docker</li>
+<li>Windows &#x2F; macOS 無法「直接」執行 Linux container</li>
+</ul>
+<h2 id="Docker-Engine-是什麼角色？"><a href="#Docker-Engine-是什麼角色？" class="headerlink" title="Docker Engine 是什麼角色？"></a>Docker Engine 是什麼角色？</h2><p>Docker Engine（dockerd）是 <strong>container 的控制平面（control plane）</strong>，負責：</p>
+<ul>
+<li>建立與管理 container</li>
+<li>設定 namespace &#x2F; cgroup</li>
+<li>掛載 image filesystem（overlayfs）</li>
+<li>建立 network、port mapping</li>
+<li>啟動 &#x2F; 停止 container</li>
+</ul>
+<div class="note warning"><p>Docker Engine <strong>不在 container 的 syscall 執行路徑上</strong>。</p>
+<p>一旦 container 啟動完成：</p>
+<p>container process → Linux kernel</p>
+<p>syscall 直接由 kernel 處理，不會經過 Docker Engine。  </p>
+</div>
+
+
+<h2 id="那-Docker-Desktop-又是做什麼的？"><a href="#那-Docker-Desktop-又是做什麼的？" class="headerlink" title="那 Docker Desktop 又是做什麼的？"></a>那 Docker Desktop 又是做什麼的？</h2><p>在 Windows &#x2F; macOS 上，問題不是 Docker，而是：</p>
+<blockquote>
+<p><strong>系統本身沒有 Linux kernel</strong></p>
+</blockquote>
+<p>Docker Desktop 的核心任務只有一個：</p>
+<blockquote>
+<p><strong>先啟動一個 Linux VM，然後在裡面執行 Docker Engine</strong></p>
+</blockquote>
+<p>實際架構如下：</p>
+<p>Windows &#x2F; macOS<br>&nbsp; └── Docker Desktop<br>&nbsp; &nbsp; └── Linux VM (真實的 Linux kernel)<br>&nbsp; &nbsp; &nbsp; └── Docker Engine<br>&nbsp; &nbsp; &nbsp; &nbsp; └── Containers</p>
+<p>Docker Desktop ≠ Docker Engine<br>Docker Desktop 是「包裝 VM + Docker Engine 的工具」</p>
+<h2 id="Container-內的指令大致是怎麼執行的？"><a href="#Container-內的指令大致是怎麼執行的？" class="headerlink" title="Container 內的指令大致是怎麼執行的？"></a>Container 內的指令大致是怎麼執行的？</h2><p>以 Non-Linux OS + Docker Desktop 為例，container 執行流程如下：</p>
+<p><strong>一般指令</strong><br>container process<br>  ↓（user-space instruction）<br>CPU 直接執行</p>
+<p><strong>syscall</strong><br>container process<br>  ↓ syscall<br>Linux kernel（VM 內）<br>  ↓<br>虛擬硬體<br>  ↓<br>Hypervisor<br>  ↓<br>Host kernel<br>  ↓<br>實體硬體</p>
+<h2 id="簡單總結角色分工"><a href="#簡單總結角色分工" class="headerlink" title="簡單總結角色分工"></a>簡單總結角色分工</h2><ul>
+<li><strong>Container</strong>：被隔離的 process，本身沒有 kernel</li>
+<li><strong>Docker Engine</strong>：container 的生命週期與資源管理者</li>
+<li><strong>Docker Desktop</strong>：為非 Linux 系統提供 Linux VM 的包裝工具</li>
+<li><strong>Linux VM</strong>：提供 Linux kernel 與硬體虛擬化</li>
+<li><strong>Host OS</strong>：最終的硬體資源管理者</li>
+</ul>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>理解 Docker 的關鍵，不只在於指令本身，而在於：</p>
+<blockquote>
+<p><strong>哪些事情是 kernel 做的，哪些只是 Docker 幫你「安排好」</strong></p>
+</blockquote>
+<p>一旦這個邊界清楚，後續學習 Dockerfile、Kubernetes 都會變得清晰且自然</p>
+<div class="post-end-notification">
+  <div class="note info no-icon"><h4 id="謝謝閱讀到這裡的你-妳"><a href="#謝謝閱讀到這裡的你-妳" class="headerlink" title="謝謝閱讀到這裡的你&#x2F;妳"></a>謝謝閱讀到這裡的你&#x2F;妳</h4><p>如果覺得文章對您有幫助不妨按個<strong>喜歡</strong><br>若有任何疑問也歡迎底下<strong>留言</strong></p>
+</div>
+</div>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2026-01-21T19:42:59+08:00"
-              content="2026-01-21">
-          01-21
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/Docker/%E7%94%A8Dockerfile%E8%A3%BD%E4%BD%9C%E4%B8%80%E4%BB%BD%E6%98%A0%E5%83%8F%E6%AA%94%E4%BE%86%E5%95%9F%E5%8B%95Python%E6%9C%8D%E5%8B%99%E5%90%A7/" itemprop="url">
-            <span itemprop="name">用Dockerfile製作一份映像檔來啟動Python服務吧</span>
-          </a>
-      </div>
+    <footer class="post-footer">
 
-      
-    </header>
+
+
+
+
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+              <a href="/tags/Container/" rel="tag"># Container</a>
+              <a href="/tags/VM/" rel="tag"># VM</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/" rel="prev" title="Docker-基本功(一)">
+                  <i class="fa fa-angle-left"></i> Docker-基本功(一)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%BA%8C/" rel="next" title="Docker-基本功(二)">
+                  Docker-基本功(二) <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2026-01-21T14:38:16+08:00"
-              content="2026-01-21">
-          01-21
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%BA%8C/" itemprop="url">
-            <span itemprop="name">Docker-基本功(二)</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2026-01-21T12:36:16+08:00"
-              content="2026-01-21">
-          01-21
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/Docker/Container%E3%80%81Docker-Engine-%E8%88%87-Docker-Desktop%EF%BC%9A%E4%B8%80%E6%AC%A1%E9%87%90%E6%B8%85%E8%A7%92%E8%89%B2%E8%88%87%E5%9F%B7%E8%A1%8C%E6%B5%81%E7%A8%8B/" itemprop="url">
-            <span itemprop="name">Container、Docker Engine 與 Docker Desktop：一次釐清角色與執行流程</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2026-01-20T14:38:23+08:00"
-              content="2026-01-20">
-          01-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/" itemprop="url">
-            <span itemprop="name">Docker-基本功(一)</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-    </div>
-  </div>
-  
-  
-  
-
+    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
@@ -400,7 +531,7 @@ darkmode.showWidget();
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Cody-Kao","repo":"Cody-Kao.github.io-comment","client_id":"${{ secrets.GITHUB_CLIENT_ID }}","client_secret":"${{ secrets.GITHUB_CLIENT_SECRET }}","admin_user":"Cody-Kao","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"body":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"ad96c663337ef27d1f054c4673bfc3cb"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Cody-Kao","repo":"Cody-Kao.github.io-comment","client_id":"${{ secrets.GITHUB_CLIENT_ID }}","client_secret":"${{ secrets.GITHUB_CLIENT_SECRET }}","admin_user":"Cody-Kao","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"body":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"b320c95db4311423740034b7b487c17e"}</script>
 <script src="/js/third-party/comments/gitalk.js" defer></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {

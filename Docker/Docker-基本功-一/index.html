@@ -25,7 +25,7 @@
 
     <meta name="description" content="前言有接觸過容器化(Containerization)的朋友們一定對一隻藍色小鯨魚🐳不陌生吧沒錯! 目前主流的容器化技術就是我們熟悉(也可能還不熟悉🤫)的Docker，當然還有Podman、LXC等等而這篇文章將會作為Docker系列的第一篇，所以相當新手友善，如果講到這邊還沒造成生理不適的話就放心地看下去吧">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker 基本功(一)">
+<meta property="og:title" content="Docker-基本功(一)">
 <meta property="og:url" content="https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/index.html">
 <meta property="og:site_name" content="Code with Cody">
 <meta property="og:description" content="前言有接觸過容器化(Containerization)的朋友們一定對一隻藍色小鯨魚🐳不陌生吧沒錯! 目前主流的容器化技術就是我們熟悉(也可能還不熟悉🤫)的Docker，當然還有Podman、LXC等等而這篇文章將會作為Docker系列的第一篇，所以相當新手友善，如果講到這邊還沒造成生理不適的話就放心地看下去吧">
@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://cody-kao.github.io/images/Docker/Docker-port-mapping.png">
 <meta property="og:image" content="https://cody-kao.github.io/images/Docker/Docker-ps-a.png">
 <meta property="article:published_time" content="2026-01-20T06:38:23.000Z">
-<meta property="article:modified_time" content="2026-01-20T12:57:20.530Z">
+<meta property="article:modified_time" content="2026-01-21T11:37:27.238Z">
 <meta property="article:author" content="Cody">
 <meta property="article:tag" content="Backend">
 <meta property="article:tag" content="Container">
@@ -52,10 +52,10 @@
 <link rel="canonical" href="https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/","path":"Docker/Docker-基本功-一/","title":"Docker 基本功(一)"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/","path":"Docker/Docker-基本功-一/","title":"Docker-基本功(一)"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Docker 基本功(一) | Code with Cody</title>
+<title>Docker-基本功(一) | Code with Cody</title>
   
 
 
@@ -199,7 +199,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -210,7 +210,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -261,12 +261,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Docker 基本功(一) | Code with Cody">
+      <meta itemprop="name" content="Docker-基本功(一) | Code with Cody">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Docker 基本功(一)
+          Docker-基本功(一)
         </h1>
 
         <div class="post-meta-container">
@@ -276,9 +276,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2026-01-20 14:38:23 / 修改時間：20:57:20" itemprop="dateCreated datePublished" datetime="2026-01-20T14:38:23+08:00">2026-01-20</time>
+      <time title="創建時間：2026-01-20 14:38:23" itemprop="dateCreated datePublished" datetime="2026-01-20T14:38:23+08:00">2026-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2026-01-21 19:37:27" itemprop="dateModified" datetime="2026-01-21T19:37:27+08:00">2026-01-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -306,7 +312,7 @@
         <i class="fa-regular fa-comment-dots"></i>
     </span>
     <span class="post-meta-item-text post-meta-count">
-        留言: 0
+        留言 0
     </span>
 </span>
 
@@ -385,7 +391,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --<span class="built_in">rm</span> redis redis-cli -h host.docker.internal -p 6379</span><br></pre></td></tr></table></figure>
 <p>但發現明明服務已經啟動了卻如何也連不上</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could not connect to Redis at host.docker.internal:6379: Connection refused</span><br></pre></td></tr></table></figure>
-<p>那是因為我們並沒有使Container的<strong>6379 port</strong>對外曝露，而這件事也可以從我們之前透過<code>docker ps</code>打印的資訊得知<br><img data-src="/images/Docker/Docker-ps-2-1.png" alt="Docker ps" title="Docker ps"><br>一般來說，redis服務預設是使用TCP監聽<strong>6379 port</strong>，就像是http服務跑在80 port，但是圖中顯示<code>6379/tcp</code>代表雖然Container本身在監聽這個端口，但我們並沒有指派一個host port讓Docker幫我們轉接出來。為此我們指派host的6379 port去給Container(建議使用同樣的host port去對應container port) 我們一樣使用flag: <strong>-p hostPort:containerPort</strong>去指派  </p>
+<p>那是因為我們並沒有使Container的<strong>6379 port</strong>對外曝露，而這件事也可以從我們之前透過<code>docker ps</code>打印的資訊得知<br><img data-src="/images/Docker/Docker-ps-2-1.png" alt="Docker ps" title="Docker ps"><br>一般來說，redis服務預設是使用TCP監聽<strong>6379 port</strong>，就像是http服務跑在80 port，但是圖中顯示<code>6379/tcp</code>代表雖然Container本身在監聽這個端口，但我們並沒有指派一個host port讓Docker幫我們轉接出來。為此我們指派host的6379 port去給Container(建議使用同樣的host port去對應container port) 我們使用 <code>-p hostPort:containerPort</code> 去指派，這個行為叫 <strong>port mapping</strong></p>
 <p><strong>Port Mapping in Docker</strong><br><i style="font-size:.75rem;">source: <a target="_blank" rel="noopener" href="https://medium.com/@ppran234/why-do-we-bind-ports-in-docker-4f2a62ea2e69">https://medium.com/@ppran234/why-do-we-bind-ports-in-docker-4f2a62ea2e69</a></i><br><img data-src="/images/Docker/Docker-port-mapping.png" alt="Docker port mapping" title="Docker port mapping"> </p>
 <p>在著手設定端口映射之前，我們先停止當前的容器，再輸入<code>docker ps -a</code>把所有的Container打印出來(先前的<code>docker ps</code>只能印出正在執行的)<br><img data-src="/images/Docker/Docker-ps-a.png" alt="Docker ps -a" title="Docker ps -a"><br>之後先把所有停止的容器刪除(目前會有3個)<br>至於為甚麼這麼多呢? 因為每次我們執行<code>docker run</code>都會基於Image建立並啟動一個新的container，而若要指定啟動某個已經建立好的container則是使用<code>docker start</code>的指令。  </p>
 <p>我們輸入以下指令把容器刪除</p>
@@ -412,98 +418,103 @@
 <h3 id="Docker-基本語法速查表"><a href="#Docker-基本語法速查表" class="headerlink" title="Docker 基本語法速查表"></a>Docker 基本語法速查表</h3><table>
 <thead>
 <tr>
-<th>類別</th>
-<th>指令 &#x2F; 範例</th>
-<th>說明</th>
+<th align="left">類別</th>
+<th align="left">指令 &#x2F; 範例</th>
+<th align="left">說明</th>
 </tr>
 </thead>
 <tbody><tr>
-<td><strong>Container</strong></td>
-<td><code>docker run -d --name my-container redis:latest</code></td>
-<td>建立並啟動新的 container</td>
+<td align="left"><strong>Image</strong></td>
+<td align="left"><code>docker pull</code></td>
+<td align="left">下載 Image</td>
 </tr>
 <tr>
-<td></td>
-<td><code>docker ps</code></td>
-<td>查看正在運行的 container</td>
+<td align="left"></td>
+<td align="left"><code>docker images</code></td>
+<td align="left">列出所有 image</td>
 </tr>
 <tr>
-<td></td>
-<td><code>docker ps -a</code></td>
-<td>查看所有 container（包括停止的）</td>
+<td align="left"></td>
+<td align="left"><code>docker rmi &lt;image&gt;</code></td>
+<td align="left">刪除指定 image</td>
 </tr>
 <tr>
-<td></td>
-<td><code>docker stop &lt;container&gt;</code></td>
-<td>停止正在運行的 container</td>
+<td align="left"></td>
+<td align="left"><code>docker rmi -f &lt;image&gt;</code></td>
+<td align="left">強制刪除 image（即使有 container 依賴）</td>
 </tr>
 <tr>
-<td></td>
-<td><code>docker start &lt;container&gt;</code></td>
-<td>啟動已停止的 container</td>
+<td align="left"></td>
+<td align="left"><code>docker image prune</code></td>
+<td align="left">刪除 dangling image</td>
 </tr>
 <tr>
-<td></td>
-<td><code>docker restart &lt;container&gt;</code></td>
-<td>重啟 container</td>
+<td align="left"></td>
+<td align="left"><code>docker image prune -a</code></td>
+<td align="left">刪除所有未使用的 image</td>
 </tr>
 <tr>
-<td></td>
-<td><code>docker exec -it &lt;container&gt; &lt;command&gt;</code></td>
-<td>在 container 內執行命令（例如redis-cli以直接操作redis）</td>
+<td align="left"><strong>Container</strong></td>
+<td align="left"><code>docker run -d --name my-container &lt;image&gt;</code></td>
+<td align="left">建立並在背景模式下啟動新的 container</td>
 </tr>
 <tr>
-<td></td>
-<td><code>docker rm &lt;container&gt;</code></td>
-<td>刪除 container（需先停止）</td>
+<td align="left"></td>
+<td align="left"><code>docker ps</code></td>
+<td align="left">查看正在運行的 container</td>
 </tr>
 <tr>
-<td></td>
-<td><code>docker container prune</code></td>
-<td>刪除所有停止的 container</td>
+<td align="left"></td>
+<td align="left"><code>docker ps -a</code></td>
+<td align="left">查看所有 container（包括停止的）</td>
 </tr>
 <tr>
-<td><strong>Image</strong></td>
-<td><code>docker pull</code></td>
-<td>下載Image</td>
+<td align="left"></td>
+<td align="left"><code>docker logs &lt;container&gt;</code></td>
+<td align="left">查看該 container 所有日誌（常配合 detached mode）</td>
 </tr>
 <tr>
-<td></td>
-<td><code>docker images</code></td>
-<td>列出所有 image</td>
+<td align="left"></td>
+<td align="left"><code>docker stop &lt;container&gt;</code></td>
+<td align="left">停止正在運行的 container</td>
 </tr>
 <tr>
-<td></td>
-<td><code>docker rmi &lt;image&gt;</code></td>
-<td>刪除指定 image</td>
+<td align="left"></td>
+<td align="left"><code>docker start &lt;container&gt;</code></td>
+<td align="left">啟動已停止的 container</td>
 </tr>
 <tr>
-<td></td>
-<td><code>docker rmi -f &lt;image&gt;</code></td>
-<td>強制刪除 image（即使有 container 依賴）</td>
+<td align="left"></td>
+<td align="left"><code>docker restart &lt;container&gt;</code></td>
+<td align="left">重啟 container</td>
 </tr>
 <tr>
-<td></td>
-<td><code>docker image prune</code></td>
-<td>刪除 dangling image</td>
+<td align="left"></td>
+<td align="left"><code>docker exec -it &lt;container&gt; &lt;command&gt;</code></td>
+<td align="left">在 container 內執行命令（例如 redis-cli 以直接操作 Redis）</td>
 </tr>
 <tr>
-<td></td>
-<td><code>docker image prune -a</code></td>
-<td>刪除所有未使用的 image</td>
+<td align="left"></td>
+<td align="left"><code>docker rm &lt;container&gt;</code></td>
+<td align="left">刪除 container（需先停止）</td>
 </tr>
 <tr>
-<td><strong>Port 映射</strong></td>
-<td><code>-p &lt;host_port&gt;:&lt;container_port&gt;</code></td>
-<td>將 container 內的 port 映射到 Host</td>
+<td align="left"></td>
+<td align="left"><code>docker container prune</code></td>
+<td align="left">刪除所有停止的 container</td>
 </tr>
 <tr>
-<td><strong>快速清理</strong></td>
-<td><code>docker system prune</code></td>
-<td>刪除未使用的 container、image、volume 等</td>
+<td align="left"><strong>Port 映射</strong></td>
+<td align="left"><code>-p &lt;host_port&gt;:&lt;container_port&gt;</code></td>
+<td align="left">將 container 內的 port 映射到 Host</td>
+</tr>
+<tr>
+<td align="left"><strong>快速清理</strong></td>
+<td align="left"><code>docker system prune</code></td>
+<td align="left">刪除未使用的 container、image、volume 等</td>
 </tr>
 </tbody></table>
-<p>下一集再跟大家分享Dockerfile以及製作自己的映象檔!</p>
+<p>下一集再跟大家分享更多實用的語法，順便把這邊出現的進階語法一併補充</p>
 <div class="post-end-notification">
   <div class="note info no-icon"><h4 id="謝謝閱讀到這裡的你-妳"><a href="#謝謝閱讀到這裡的你-妳" class="headerlink" title="謝謝閱讀到這裡的你&#x2F;妳"></a>謝謝閱讀到這裡的你&#x2F;妳</h4><p>如果覺得文章對您有幫助不妨按個<strong>喜歡</strong><br>若有任何疑問也歡迎底下<strong>留言</strong></p>
 </div>
@@ -536,6 +547,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/Docker/Container%E3%80%81Docker-Engine-%E8%88%87-Docker-Desktop%EF%BC%9A%E4%B8%80%E6%AC%A1%E9%87%90%E6%B8%85%E8%A7%92%E8%89%B2%E8%88%87%E5%9F%B7%E8%A1%8C%E6%B5%81%E7%A8%8B/" rel="next" title="Container、Docker Engine 與 Docker Desktop：一次釐清角色與執行流程">
+                  Container、Docker Engine 與 Docker Desktop：一次釐清角色與執行流程 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -568,14 +582,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">3k</span>
+    <span title="總字數">6k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">11 分鐘</span>
+    <span title="所需總閱讀時間">23 分鐘</span>
   </span>
 </div>
 
@@ -621,7 +635,7 @@ darkmode.showWidget();
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Cody-Kao","repo":"Cody-Kao.github.io-comment","client_id":"Ov23lixrz47vhBfmnqst","client_secret":"cab7b64ef3517e50a7314690fceb23c06aaaa508","admin_user":"Cody-Kao","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"body":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"cdf7d6d22ddf614d99aa2bd37b0bebde"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Cody-Kao","repo":"Cody-Kao.github.io-comment","client_id":"${{ secrets.GITHUB_CLIENT_ID }}","client_secret":"${{ secrets.GITHUB_CLIENT_SECRET }}","admin_user":"Cody-Kao","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"body":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"cdf7d6d22ddf614d99aa2bd37b0bebde"}</script>
 <script src="/js/third-party/comments/gitalk.js" defer></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {

@@ -184,7 +184,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -195,7 +195,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -232,7 +232,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/">
+    <link itemprop="mainEntityOfPage" href="https://cody-kao.github.io/Docker/%E7%94%A8Dockerfile%E8%A3%BD%E4%BD%9C%E4%B8%80%E4%BB%BD%E6%98%A0%E5%83%8F%E6%AA%94%E4%BE%86%E5%95%9F%E5%8B%95Python%E6%9C%8D%E5%8B%99%E5%90%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -250,7 +250,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/" class="post-title-link" itemprop="url">Docker 基本功(一)</a>
+          <a href="/Docker/%E7%94%A8Dockerfile%E8%A3%BD%E4%BD%9C%E4%B8%80%E4%BB%BD%E6%98%A0%E5%83%8F%E6%AA%94%E4%BE%86%E5%95%9F%E5%8B%95Python%E6%9C%8D%E5%8B%99%E5%90%A7/" class="post-title-link" itemprop="url">用Dockerfile製作一份映像檔來啟動Python服務吧</a>
         </h2>
 
         <div class="post-meta-container">
@@ -262,7 +262,7 @@
       <span class="post-meta-item-text">發表於</span>
       
 
-      <time title="創建時間：2026-01-20 14:38:23 / 修改時間：20:57:20" itemprop="dateCreated datePublished" datetime="2026-01-20T14:38:23+08:00">2026-01-20</time>
+      <time title="創建時間：2026-01-21 19:42:59 / 修改時間：22:47:31" itemprop="dateCreated datePublished" datetime="2026-01-21T19:42:59+08:00">2026-01-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -290,7 +290,406 @@
         <i class="fa-regular fa-comment-dots"></i>
     </span>
     <span class="post-meta-item-text post-meta-count">
-        留言: 0
+        留言 0
+    </span>
+</span>
+
+<span class="post-meta-item">
+    <span class="post-meta-item-icon">
+        <i class="fa-regular fa-thumbs-up"></i>
+    </span>
+    <span class="post-meta-item-text post-meta-count">
+        0
+    </span>
+</span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前面幾篇我們一直在使用「現成的 image」(例如 <strong>redis</strong>)<br>但你一定會開始好奇一件事：</p>
+<blockquote>
+<p><strong>image 到底是怎麼被做出來的？</strong></p>
+</blockquote>
+<p>這一篇，我們就用一個<strong>最小可執行、看得到效果的 Flask Hello World demo</strong><br>一步一步認識：</p>
+<ul>
+<li>Dockerfile 的角色</li>
+<li>base image 的意義</li>
+<li>COPY &#x2F; RUN &#x2F; CMD &#x2F; … 各自負責什麼</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Docker/%E7%94%A8Dockerfile%E8%A3%BD%E4%BD%9C%E4%B8%80%E4%BB%BD%E6%98%A0%E5%83%8F%E6%AA%94%E4%BE%86%E5%95%9F%E5%8B%95Python%E6%9C%8D%E5%8B%99%E5%90%A7/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%BA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Cody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code with Cody">
+      <meta itemprop="description" content="Learning codes with me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code with Cody">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%BA%8C/" class="post-title-link" itemprop="url">Docker-基本功(二)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-01-21 14:38:16 / 修改時間：16:26:34" itemprop="dateCreated datePublished" datetime="2026-01-21T14:38:16+08:00">2026-01-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+        </span>
+    </span>
+
+  
+
+
+
+
+
+
+
+
+<span class="post-meta-break"></span>
+
+<span class="post-meta-item">
+    <span class="post-meta-item-icon">
+        <i class="fa-regular fa-comment-dots"></i>
+    </span>
+    <span class="post-meta-item-text post-meta-count">
+        留言 0
+    </span>
+</span>
+
+<span class="post-meta-item">
+    <span class="post-meta-item-icon">
+        <i class="fa-regular fa-thumbs-up"></i>
+    </span>
+    <span class="post-meta-item-text post-meta-count">
+        0
+    </span>
+</span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.1k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在<a href="/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80">上一篇</a>提到過基本的Docker語法後想必對更進階的用法感到好奇吧! 在這一篇將會分享更多關於<strong>flag</strong>的使用，而在日常開發中也有許多好用、必學的flag用法喔! 廢話不多說讓我們馬上開始</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%BA%8C/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://cody-kao.github.io/Docker/Container%E3%80%81Docker-Engine-%E8%88%87-Docker-Desktop%EF%BC%9A%E4%B8%80%E6%AC%A1%E9%87%90%E6%B8%85%E8%A7%92%E8%89%B2%E8%88%87%E5%9F%B7%E8%A1%8C%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Cody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code with Cody">
+      <meta itemprop="description" content="Learning codes with me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code with Cody">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Docker/Container%E3%80%81Docker-Engine-%E8%88%87-Docker-Desktop%EF%BC%9A%E4%B8%80%E6%AC%A1%E9%87%90%E6%B8%85%E8%A7%92%E8%89%B2%E8%88%87%E5%9F%B7%E8%A1%8C%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">Container、Docker Engine 與 Docker Desktop：一次釐清角色與執行流程</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-01-21 12:36:16 / 修改時間：13:28:59" itemprop="dateCreated datePublished" datetime="2026-01-21T12:36:16+08:00">2026-01-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+        </span>
+    </span>
+
+  
+
+
+
+
+
+
+
+
+<span class="post-meta-break"></span>
+
+<span class="post-meta-item">
+    <span class="post-meta-item-icon">
+        <i class="fa-regular fa-comment-dots"></i>
+    </span>
+    <span class="post-meta-item-text post-meta-count">
+        留言 0
+    </span>
+</span>
+
+<span class="post-meta-item">
+    <span class="post-meta-item-icon">
+        <i class="fa-regular fa-thumbs-up"></i>
+    </span>
+    <span class="post-meta-item-text post-meta-count">
+        0
+    </span>
+</span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>872</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>是否每次執行了Docker命令 或是透過容器化解決了日常開發需求的難題後總不禁去想這一切是如何辦到的?<br>還是依然不了解為甚麼要安裝Docker Desktop?<br>或是不清楚Container以及Docker Engine究竟是什麼?<br>今天透過這篇文章一次釐清! 內容保證不會過於學術艱澀<del>因為我也沒那麼厲害</del><br>準備好嘔吐袋 我們馬上開始!</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Docker/Container%E3%80%81Docker-Engine-%E8%88%87-Docker-Desktop%EF%BC%9A%E4%B8%80%E6%AC%A1%E9%87%90%E6%B8%85%E8%A7%92%E8%89%B2%E8%88%87%E5%9F%B7%E8%A1%8C%E6%B5%81%E7%A8%8B/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Cody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code with Cody">
+      <meta itemprop="description" content="Learning codes with me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code with Cody">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80/" class="post-title-link" itemprop="url">Docker-基本功(一)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2026-01-20 14:38:23" itemprop="dateCreated datePublished" datetime="2026-01-20T14:38:23+08:00">2026-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2026-01-21 19:37:27" itemprop="dateModified" datetime="2026-01-21T19:37:27+08:00">2026-01-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+        </span>
+    </span>
+
+  
+
+
+
+
+
+
+
+
+<span class="post-meta-break"></span>
+
+<span class="post-meta-item">
+    <span class="post-meta-item-icon">
+        <i class="fa-regular fa-comment-dots"></i>
+    </span>
+    <span class="post-meta-item-text post-meta-count">
+        留言 0
     </span>
 </span>
 
@@ -418,7 +817,7 @@
         <i class="fa-regular fa-comment-dots"></i>
     </span>
     <span class="post-meta-item-text post-meta-count">
-        留言: 0
+        留言 0
     </span>
 </span>
 
@@ -501,14 +900,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">3k</span>
+    <span title="總字數">6k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">11 分鐘</span>
+    <span title="所需總閱讀時間">23 分鐘</span>
   </span>
 </div>
 
@@ -554,7 +953,7 @@ darkmode.showWidget();
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Cody-Kao","repo":"Cody-Kao.github.io-comment","client_id":"Ov23lixrz47vhBfmnqst","client_secret":"cab7b64ef3517e50a7314690fceb23c06aaaa508","admin_user":"Cody-Kao","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"body":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"d1546d731a9f30cc80127d57142a482b"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Cody-Kao","repo":"Cody-Kao.github.io-comment","client_id":"${{ secrets.GITHUB_CLIENT_ID }}","client_secret":"${{ secrets.GITHUB_CLIENT_SECRET }}","admin_user":"Cody-Kao","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"body":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"d1546d731a9f30cc80127d57142a482b"}</script>
 <script src="/js/third-party/comments/gitalk.js" defer></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
