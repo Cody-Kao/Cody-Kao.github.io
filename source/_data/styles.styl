@@ -166,23 +166,32 @@ body.darkmode--activated .reading-progress-bar {
   /* This targets the inner note div created by NexT */
   background-size: cover;
   font-size: 16px; /* Font Size */
-}
-.post-body .note {
-    background-color: #f9f9f9;
-    padding: 10px;
-    border: none;
-    border-left: 5px solid #428bca;
-    background-image: url('/images/avatar.png'); /* Background Image */
-    background-repeat: no-repeat;
-    background-origin: border-box;
-    background-size: 150px auto;
-    background-position: right bottom;
+  position: relative;
 }
 
-@media (max-width:768px) {
-  .post-body .note {
+.post-end-notification::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/avatar.png'); /* Background Image */
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  background-size: 150px auto;
+  background-position: right bottom;
+  z-index: 1;
+}
+
+@media (max-width:450px) {
+  .post-end-notification::before {
     background-image: none;
   }
+}
+
+.post-body .note {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: none;
+  border-left: 5px solid #428bca;
 }
 
 body.darkmode--activated .post-body .note {

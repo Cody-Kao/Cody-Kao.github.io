@@ -98,6 +98,9 @@ docker run -it --rm redis redis-cli -h host.docker.internal -p 6379
 如果我們連線成功應該會看到terminal顯示著我們的hostname  
 ![Docker -h](/images/Docker/Docker-h.png "Docker -h")
 
+> 在 container 裡， **host.docker.internal** 是用來存取 宿主機（host machine） 的一個特殊 DNS 名稱。  
+> 它是 Docker Desktop（Mac / Windows）內建的便利功能，Linux 上則需額外設定
+
 ## 驗收
 這時候再回來看以下的指令應該就清晰了不少
 ```bash
@@ -105,6 +108,12 @@ docker run -it --rm redis redis-cli -h host.docker.internal -p 6379
 ```
 我們開啟一個redis container並且透過`--rm`讓他自動在結束的時候刪除，`-it`既保留了stdin輸入也讓後續的操作分配 terminal 讓CLI正常。  
 `redis-cli -h host.docker.internal -p 6379`這部分是 container 內要啟動的 process，開啟`redis-cli`，並且用`-h`把主機名稱設為"host.docker.internal"然後`-p`連線到6379 port
+
+{% note warning %}
+#### 為甚麼沒有port mapping?
+上一篇介紹過port mapping是透過 `-p <host_port>:<container_port>` ，其實他是等價於
+`-h host.docker.internal -p 6379`的，因為 **host.docker.internal**代表的是本機(host machine)，所以兩者的效果都是 **本機:6379  ←→  Redis container:6379**
+{% endnote %}
 
 ## 總結 
 以上就是我們今天所介紹的**flag**，當然還有一些例如: `-v` `-f`等等 但他們值得一個額外的篇幅。 

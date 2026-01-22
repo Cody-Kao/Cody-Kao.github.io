@@ -138,3 +138,10 @@ feed:
   icon: icon.png
   autodiscovery: true
   template:
+
+symbols_count_time:
+  separated_meta: true
+  item_text_total: true
+  exclude_codeblock: false # 字數統計是否排除程式碼
+  awl: 2 # 平均文字長度，中文為 2, 英文為 5, 預設為 4
+  wpm: 110 # 一分鐘閱讀字數
