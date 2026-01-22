@@ -6,7 +6,7 @@
   <link href="https://cody-kao.github.io/atom.xml" rel="self"/>
   
   <link href="https://cody-kao.github.io/"/>
-  <updated>2026-01-21T14:47:31.499Z</updated>
+  <updated>2026-01-22T07:21:58.201Z</updated>
   <id>https://cody-kao.github.io/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>需要多個Container怎麼辦? 為甚麼要用Docker Compose?</title>
+    <link href="https://cody-kao.github.io/Docker/%E9%9C%80%E8%A6%81%E5%A4%9A%E5%80%8BContainer%E6%80%8E%E9%BA%BC%E8%BE%A6-%E7%82%BA%E7%94%9A%E9%BA%BC%E8%A6%81%E7%94%A8Docker-Compose/"/>
+    <id>https://cody-kao.github.io/Docker/%E9%9C%80%E8%A6%81%E5%A4%9A%E5%80%8BContainer%E6%80%8E%E9%BA%BC%E8%BE%A6-%E7%82%BA%E7%94%9A%E9%BA%BC%E8%A6%81%E7%94%A8Docker-Compose/</id>
+    <published>2026-01-22T03:34:26.000Z</published>
+    <updated>2026-01-22T07:21:58.201Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在前面的幾篇文章中，我們已經學會了如何使用 Docker 建立 image、啟動 container，也理解了 base image、WORKDIR、COPY 等背後的設計概念。&lt;/p&gt;
+&lt;p&gt;但在實際開發中，&lt;strong&gt;服務往往不只一個 container&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;舉例來說：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一個後端服務（Flask &amp;#x2F; FastAPI &amp;#x2F; Node.js）&lt;/li&gt;
+&lt;li&gt;搭配一個快取或資料庫（Redis &amp;#x2F; PostgreSQL）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;這時候問題就來了：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;container 之間要怎麼連線？&lt;br&gt;啟動順序誰來管？&lt;br&gt;每次都要打一長串 &lt;code&gt;docker run&lt;/code&gt; 嗎？  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果這時候有一個方法能夠一次管理這些container的啟動與設定該有多好!&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Docker" scheme="https://cody-kao.github.io/categories/Docker/"/>
+    
+    
+    <category term="Docker" scheme="https://cody-kao.github.io/tags/Docker/"/>
+    
+    <category term="Backend" scheme="https://cody-kao.github.io/tags/Backend/"/>
+    
+    <category term="Docker Compose" scheme="https://cody-kao.github.io/tags/Docker-Compose/"/>
+    
+  </entry>
   
   <entry>
     <title>用Dockerfile製作一份映像檔來啟動Python服務吧</title>
@@ -55,7 +89,7 @@
     <link href="https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%BA%8C/"/>
     <id>https://cody-kao.github.io/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%BA%8C/</id>
     <published>2026-01-21T06:38:16.000Z</published>
-    <updated>2026-01-21T08:26:34.269Z</updated>
+    <updated>2026-01-22T04:10:54.561Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在&lt;a href=&quot;/Docker/Docker-%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E4%B8%80&quot;&gt;上一篇&lt;/a&gt;提到過基本的Docker語法後想必對更進階的用法感到好奇吧! 在這一篇將會分享更多關於&lt;strong&gt;flag&lt;/strong&gt;的使用，而在日常開發中也有許多好用、必學的flag用法喔! 廢話不多說讓我們馬上開始&lt;/p&gt;</summary>

@@ -32,7 +32,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://cody-kao.github.io/images/Docker/Docker-h.png">
 <meta property="article:published_time" content="2026-01-21T06:38:16.000Z">
-<meta property="article:modified_time" content="2026-01-21T08:26:34.269Z">
+<meta property="article:modified_time" content="2026-01-22T04:10:54.561Z">
 <meta property="article:author" content="Cody">
 <meta property="article:tag" content="Backend">
 <meta property="article:tag" content="Container">
@@ -176,7 +176,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E9%A1%A7"><span class="nav-number">2.</span> <span class="nav-text">回顧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Flag"><span class="nav-number">3.</span> <span class="nav-text">Docker Flag</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#i-%E4%BF%9D%E6%8C%81-stdin-%E9%96%8B%E5%95%9F%EF%BC%88interactive%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">-i 保持 stdin 開啟（interactive）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#t-%E5%88%86%E9%85%8D-pseudo-TTY%EF%BC%88terminal%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">-t 分配 pseudo-TTY（terminal）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#it-%E4%BA%92%E5%8B%95-flag-%E7%B5%84%E5%90%88"><span class="nav-number">3.3.</span> <span class="nav-text">-it 互動 flag 組合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%93rm-%E5%AE%B9%E5%99%A8%E5%81%9C%E6%AD%A2%E5%BE%8C%E8%87%AA%E5%8B%95%E5%88%AA%E9%99%A4"><span class="nav-number">3.4.</span> <span class="nav-text">–rm 容器停止後自動刪除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-%E2%80%93env-%E8%A8%AD%E5%AE%9A%E7%92%B0%E5%A2%83%E8%AE%8A%E6%95%B8"><span class="nav-number">3.5.</span> <span class="nav-text">-e &#x2F; –env 設定環境變數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#h-%E8%A8%AD%E5%AE%9A-container-%E4%B8%BB%E6%A9%9F%E5%90%8D%E7%A8%B1"><span class="nav-number">3.6.</span> <span class="nav-text">-h 設定 container 主機名稱</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%97%E6%94%B6"><span class="nav-number">4.</span> <span class="nav-text">驗收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">5.</span> <span class="nav-text">總結</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AC%9D%E8%AC%9D%E9%96%B1%E8%AE%80%E5%88%B0%E9%80%99%E8%A3%A1%E7%9A%84%E4%BD%A0-%E5%A6%B3"><span class="nav-number">5.1.</span> <span class="nav-text">謝謝閱讀到這裡的你&#x2F;妳</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E9%A1%A7"><span class="nav-number">2.</span> <span class="nav-text">回顧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Flag"><span class="nav-number">3.</span> <span class="nav-text">Docker Flag</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#i-%E4%BF%9D%E6%8C%81-stdin-%E9%96%8B%E5%95%9F%EF%BC%88interactive%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">-i 保持 stdin 開啟（interactive）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#t-%E5%88%86%E9%85%8D-pseudo-TTY%EF%BC%88terminal%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">-t 分配 pseudo-TTY（terminal）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#it-%E4%BA%92%E5%8B%95-flag-%E7%B5%84%E5%90%88"><span class="nav-number">3.3.</span> <span class="nav-text">-it 互動 flag 組合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%93rm-%E5%AE%B9%E5%99%A8%E5%81%9C%E6%AD%A2%E5%BE%8C%E8%87%AA%E5%8B%95%E5%88%AA%E9%99%A4"><span class="nav-number">3.4.</span> <span class="nav-text">–rm 容器停止後自動刪除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-%E2%80%93env-%E8%A8%AD%E5%AE%9A%E7%92%B0%E5%A2%83%E8%AE%8A%E6%95%B8"><span class="nav-number">3.5.</span> <span class="nav-text">-e &#x2F; –env 設定環境變數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#h-%E8%A8%AD%E5%AE%9A-container-%E4%B8%BB%E6%A9%9F%E5%90%8D%E7%A8%B1"><span class="nav-number">3.6.</span> <span class="nav-text">-h 設定 container 主機名稱</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%97%E6%94%B6"><span class="nav-number">4.</span> <span class="nav-text">驗收</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%82%BA%E7%94%9A%E9%BA%BC%E6%B2%92%E6%9C%89port-mapping"><span class="nav-number">4.1.</span> <span class="nav-text">為甚麼沒有port mapping?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">5.</span> <span class="nav-text">總結</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AC%9D%E8%AC%9D%E9%96%B1%E8%AE%80%E5%88%B0%E9%80%99%E8%A3%A1%E7%9A%84%E4%BD%A0-%E5%A6%B3"><span class="nav-number">5.1.</span> <span class="nav-text">謝謝閱讀到這裡的你&#x2F;妳</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -191,7 +191,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -202,7 +202,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -268,9 +268,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2026-01-21 14:38:16 / 修改時間：16:26:34" itemprop="dateCreated datePublished" datetime="2026-01-21T14:38:16+08:00">2026-01-21</time>
+      <time title="創建時間：2026-01-21 14:38:16" itemprop="dateCreated datePublished" datetime="2026-01-21T14:38:16+08:00">2026-01-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2026-01-22 12:10:54" itemprop="dateModified" datetime="2026-01-22T12:10:54+08:00">2026-01-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -323,7 +329,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>4 分鐘</span>
+      <span>10 分鐘</span>
     </span>
 </div>
 
@@ -397,9 +403,15 @@
 <h3 id="h-設定-container-主機名稱"><a href="#h-設定-container-主機名稱" class="headerlink" title="-h 設定 container 主機名稱"></a>-h 設定 container 主機名稱</h3><p>套用之前的例子</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --<span class="built_in">rm</span> redis redis-cli -h host.docker.internal -p 6379</span><br></pre></td></tr></table></figure>
 <p>如果我們連線成功應該會看到terminal顯示著我們的hostname<br><img data-src="/images/Docker/Docker-h.png" alt="Docker -h" title="Docker -h"></p>
+<blockquote>
+<p>在 container 裡， <strong>host.docker.internal</strong> 是用來存取 宿主機（host machine） 的一個特殊 DNS 名稱。<br>它是 Docker Desktop（Mac &#x2F; Windows）內建的便利功能，Linux 上則需額外設定</p>
+</blockquote>
 <h2 id="驗收"><a href="#驗收" class="headerlink" title="驗收"></a>驗收</h2><p>這時候再回來看以下的指令應該就清晰了不少</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --<span class="built_in">rm</span> redis redis-cli -h host.docker.internal -p 6379</span><br></pre></td></tr></table></figure>
 <p>我們開啟一個redis container並且透過<code>--rm</code>讓他自動在結束的時候刪除，<code>-it</code>既保留了stdin輸入也讓後續的操作分配 terminal 讓CLI正常。<br><code>redis-cli -h host.docker.internal -p 6379</code>這部分是 container 內要啟動的 process，開啟<code>redis-cli</code>，並且用<code>-h</code>把主機名稱設為”host.docker.internal”然後<code>-p</code>連線到6379 port</p>
+<div class="note warning"><h4 id="為甚麼沒有port-mapping"><a href="#為甚麼沒有port-mapping" class="headerlink" title="為甚麼沒有port mapping?"></a>為甚麼沒有port mapping?</h4><p>上一篇介紹過port mapping是透過 <code>-p &lt;host_port&gt;:&lt;container_port&gt;</code> ，其實他是等價於<br><code>-h host.docker.internal -p 6379</code>的，因為 <strong>host.docker.internal</strong>代表的是本機(host machine)，所以兩者的效果都是 <strong>本機:6379  ←→  Redis container:6379</strong></p>
+</div>
+
 <h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>以上就是我們今天所介紹的<strong>flag</strong>，當然還有一些例如: <code>-v</code> <code>-f</code>等等 但他們值得一個額外的篇幅。 </p>
 <p>這邊一樣幫大家整理了表格:  </p>
 <table>
@@ -514,14 +526,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">6k</span>
+    <span title="總字數">7k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">23 分鐘</span>
+    <span title="所需總閱讀時間">1:04</span>
   </span>
 </div>
 
