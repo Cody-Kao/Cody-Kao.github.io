@@ -1588,7 +1588,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #341262;
+    background: #ff880a;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -3459,6 +3459,7 @@ body.darkmode--activated .reading-progress-bar {
   background-size: 150px auto;
   background-position: right bottom;
   z-index: 1;
+  pointer-events: none;
 }
 @media (max-width: 450px) {
   .post-end-notification::before {
