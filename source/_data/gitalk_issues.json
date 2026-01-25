@@ -1,4 +1,16 @@
 {
+  "a395d386fadd9d0f41d4042173f4665f": {
+    "issue_number": 14,
+    "comments": 0,
+    "likes": 0,
+    "title": "Hello World | Code with Cody"
+  },
+  "098d18534e9cbba44981b0f5ebc7ed95": {
+    "issue_number": 13,
+    "comments": 0,
+    "likes": 0,
+    "title": "需要多個Container怎麼辦? 為甚麼要用Docker Compose? | Code with Cody"
+  },
   "b320c95db4311423740034b7b487c17e": {
     "issue_number": 12,
     "comments": 0,
@@ -20,13 +32,13 @@
   "cdf7d6d22ddf614d99aa2bd37b0bebde": {
     "issue_number": 9,
     "comments": 0,
-    "likes": 0,
+    "likes": 1,
     "title": "Docker 基本功(一) | Code with Cody"
   },
   "e45c20b7d745a207ff5534493be1adcb": {
     "issue_number": 8,
     "comments": 0,
-    "likes": 0,
+    "likes": 1,
     "title": "Hello World | Code with Cody"
   }
 }

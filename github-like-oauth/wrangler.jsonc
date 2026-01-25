@@ -8,8 +8,18 @@
 	"main": "src/index.js",
 	"compatibility_date": "2025-09-27",
 	"observability": {
-		"enabled": true
-	}
+		"enabled": true,
+	},
+	"kv_namespaces": [
+		{
+			"binding": "GH_SESSIONS", // must match env.GH_SESSIONS in your code
+			"id": "0135dcd27c7e4710b28590faa0a9fd90", // the KV namespace ID from Cloudflare
+		},
+	],
+	"vars": {
+		"OWNER": "Cody-Kao",
+		"REPO": "Cody-Kao.github.io-comment",
+	},
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
