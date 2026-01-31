@@ -148,3 +148,6 @@ symbols_count_time:
 
 sitemap:
   path: sitemap.xml
+  exclude:
+    - googlebb045f963b03f6dd.html
+    - 404.html
