@@ -70,7 +70,6 @@ export default {
 			const sessionId = crypto.randomUUID();
 
 			await env.GH_SESSIONS.put(sessionId, JSON.stringify({ accessToken, createdAt: Date.now() }), { expirationTtl: 60 * 60 * 24 * 7 });
-			const isProd = redirectOrigin.startsWith('https://');
 
 			return new Response(
 				`
@@ -90,7 +89,7 @@ export default {
 					status: 200,
 					headers: {
 						'Content-Type': 'text/html',
-						'Set-Cookie': `gh_session=${sessionId}; HttpOnly; Path=/; ${isProd ? 'Secure; SameSite=Lax' : 'Secure; SameSite=None'}`,
+						'Set-Cookie': `gh_session=${sessionId}; HttpOnly; Path=/; Secure; SameSite=None`,
 					},
 				},
 			);
